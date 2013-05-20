@@ -1,3 +1,6 @@
 *.iml
 *.classpath
 *.project
+
+api/target
+omod/target
