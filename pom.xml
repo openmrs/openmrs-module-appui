@@ -22,9 +22,9 @@
     </organization>
 
     <scm>
-        <connection>scm:svn:https://svn.openmrs.org/openmrs-modules/appui/trunk/</connection>
-        <developerConnection>scm:svn:https://svn.openmrs.org/openmrs-modules/appui/trunk/</developerConnection>
-        <url>https://svn.openmrs.org/openmrs-modules/appui/trunk/</url>
+        <connection>scm:git:git@github.com:openmrs/openmrs-module-appui.git</connection>
+        <developerConnection>scm:git:git@github.com:openmrs/openmrs-module-appui.git</developerConnection>
+        <url>scm:git:git@github.com:openmrs/openmrs-module-appui.git</url>
     </scm>
 
     <modules>
@@ -119,5 +119,18 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <id>openmrs-repo-modules</id>
+            <name>Modules</name>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules</url>
+        </repository>
+        <snapshotRepository>
+            <id>openmrs-repo-snapshots</id>
+            <name>OpenMRS Snapshots</name>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
