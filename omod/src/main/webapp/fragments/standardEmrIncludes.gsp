@@ -5,7 +5,7 @@
     ui.includeJavascript("uicommons", "knockout-2.1.0.js", Integer.MAX_VALUE - 15)
     ui.includeJavascript("uicommons", "emr.js", Integer.MAX_VALUE - 15)
 
-    ui.includeCss("uicommons", "cupertino/jquery-ui-1.9.2.custom.min.css", Integer.MAX_VALUE - 10)
+    ui.includeCss("uicommons", "styleguide/jquery-ui-1.9.2.custom.min.css", Integer.MAX_VALUE - 10)
 
     // toastmessage plugin: https://github.com/akquinet/jquery-toastmessage-plugin/wiki
     ui.includeJavascript("uicommons", "jquery.toastmessage.js", Integer.MAX_VALUE - 20)
