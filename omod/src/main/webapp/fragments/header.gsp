@@ -1,3 +1,14 @@
+<%
+    def addContextPath = {
+        if (!it)
+            return null
+        if (it.startsWith("/")) {
+            it = "/" + org.openmrs.ui.framework.WebConstants.CONTEXT_PATH + it
+        }
+        return it
+    }
+    def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("uicommons", "images/logo/openmrs-with-title-small.png")
+%>
 <script type="text/javascript">
 
     var sessionLocationModel = {
@@ -53,7 +64,7 @@
 <header>
     <div class="logo">
         <a href="${ui.pageLink("mirebalais", "home")}">
-            <img src="${ui.resourceLink("mirebalais", "images/partners_in_health_logo.png")}"/>
+            <img src="${ logoIconUrl }"/>
         </a>
     </div>
     <% if (context.authenticated) { %>
