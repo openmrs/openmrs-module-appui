@@ -54,6 +54,10 @@ public class UiSessionContext extends SessionContext {
         return sessionLocation;
     }
 
+    public void setSessionLocation(Location sessionLocation) {
+        this.sessionLocation = sessionLocation;
+    }
+
     @Override
     public Integer getSessionLocationId() {
         return sessionLocation == null ? null : sessionLocation.getLocationId();
