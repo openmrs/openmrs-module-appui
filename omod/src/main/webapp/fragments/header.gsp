@@ -8,6 +8,7 @@
         return it
     }
     def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("uicommons", "images/logo/openmrs-with-title-small.png")
+    def logoLinkUrl = addContextPath(configSettings?."logo-link-url") ?: "/${ org.openmrs.ui.framework.WebConstants.CONTEXT_PATH }"
 %>
 <script type="text/javascript">
 
@@ -63,7 +64,7 @@
 
 <header>
     <div class="logo">
-        <a href="${ui.pageLink("mirebalais", "home")}">
+        <a href="${ logoLinkUrl }">
             <img src="${ logoIconUrl }"/>
         </a>
     </div>
