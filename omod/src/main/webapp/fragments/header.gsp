@@ -91,7 +91,7 @@
 
     <div id="session-location">
         <div id="spinner" style="position:absolute; display:none">
-            <img src="${ui.resourceLink("mirebalais", "images/spinner.gif")}">
+            <img src="${ui.resourceLink("uicommons", "images/spinner.gif")}">
         </div>
         <ul class="select">
             <% loginLocations.sort { ui.format(it) }.each {
