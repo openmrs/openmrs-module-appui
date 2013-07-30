@@ -12,6 +12,7 @@ import org.openmrs.module.appframework.context.SessionContext;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.Locale;
 
 /**
  *
@@ -93,6 +94,10 @@ public class UiSessionContext extends SessionContext {
         if (!isAuthenticated()) {
             throw new APIAuthenticationException();
         }
+    }
+
+    public Locale getLocale() {
+        return userContext.getLocale();
     }
 
 }
