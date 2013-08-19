@@ -1,9 +1,15 @@
 package org.openmrs.module.appui;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.openmrs.api.LocationService;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.module.appframework.context.SessionContext;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.ui.framework.fragment.FragmentContext;
 import org.openmrs.ui.framework.fragment.FragmentModelConfigurator;
 import org.openmrs.ui.framework.fragment.PossibleFragmentActionArgumentProvider;
@@ -15,9 +21,6 @@ import org.openmrs.ui.framework.page.PossiblePageControllerArgumentProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  *
@@ -32,6 +35,12 @@ public class AppUiArgumentProvider implements PageModelConfigurator, FragmentMod
 
     @Autowired
     ProviderService providerService;
+    
+    @Autowired
+    PatientService patientService;
+    
+    @Autowired
+    AdtService adtService;
 
     @Autowired
     @Qualifier("featureToggles")
@@ -42,7 +51,7 @@ public class AppUiArgumentProvider implements PageModelConfigurator, FragmentMod
     @Override
     public void configureModel(PageContext pageContext) {
         HttpServletRequest request = pageContext.getRequest().getRequest();
-        pageContext.getModel().addAttribute(SESSION_CONTEXT_ATTR, new UiSessionContext(locationService, providerService, request));
+        pageContext.getModel().addAttribute(SESSION_CONTEXT_ATTR, new UiSessionContext(locationService, providerService, patientService, adtService, request));
         pageContext.getModel().addAttribute("featureToggles", featureToggle);
     }
 
@@ -72,7 +81,7 @@ public class AppUiArgumentProvider implements PageModelConfigurator, FragmentMod
     @Override
     public void addPossibleFragmentActionArguments(Map<Class<?>, Object> possibleArguments) {
         HttpServletRequest request = (HttpServletRequest) possibleArguments.get(HttpServletRequest.class);
-        UiSessionContext sessionContext = new UiSessionContext(locationService, providerService, request);
+        UiSessionContext sessionContext = new UiSessionContext(locationService, providerService, patientService, adtService, request);
         possibleArguments.put(SessionContext.class, sessionContext);
         possibleArguments.put(UiSessionContext.class, sessionContext);
     }
