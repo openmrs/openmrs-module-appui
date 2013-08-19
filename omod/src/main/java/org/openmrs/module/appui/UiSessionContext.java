@@ -1,5 +1,10 @@
 package org.openmrs.module.appui;
 
+import java.util.Collection;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.openmrs.Location;
 import org.openmrs.Provider;
 import org.openmrs.User;
@@ -9,10 +14,7 @@ import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.UserContext;
 import org.openmrs.module.appframework.context.SessionContext;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.Locale;
+import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 
 /**
  *
@@ -30,6 +32,8 @@ public class UiSessionContext extends SessionContext {
     Provider currentProvider;
 
     Location sessionLocation;
+    
+    VisitDomainWrapper activeVisit;
 
     public UiSessionContext(LocationService locationService, ProviderService providerService, HttpServletRequest request) {
         this.locationService = locationService;
@@ -99,5 +103,12 @@ public class UiSessionContext extends SessionContext {
     public Locale getLocale() {
         return userContext.getLocale();
     }
+    
+    public VisitDomainWrapper getActiveVisit() {
+        return activeVisit;
+    }
 
+    public void setActiveVisit(VisitDomainWrapper activeVisit) {
+        this.activeVisit = activeVisit;
+    }
 }
