@@ -5,20 +5,15 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.openmrs.Location;
-import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.APIAuthenticationException;
 import org.openmrs.api.LocationService;
-import org.openmrs.api.PatientService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.UserContext;
 import org.openmrs.module.appframework.context.SessionContext;
-import org.openmrs.module.emrapi.adt.AdtService;
-import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 
 /**
  *
@@ -30,26 +25,16 @@ public class UiSessionContext extends SessionContext {
     LocationService locationService;
 
     ProviderService providerService;
-    
-    PatientService patientService;
-    
-    AdtService adtService;
 
     UserContext userContext;
 
     Provider currentProvider;
 
     Location sessionLocation;
-    
-    VisitDomainWrapper activeVisit;
-    
-    Patient currentPatient;
 
-    public UiSessionContext(LocationService locationService, ProviderService providerService, PatientService patientService, AdtService adtService, HttpServletRequest request) {
+    public UiSessionContext(LocationService locationService, ProviderService providerService, HttpServletRequest request) {
         this.locationService = locationService;
         this.providerService = providerService;
-        this.patientService = patientService;
-        this.adtService = adtService;
         Integer locationId = (Integer) request.getSession().getAttribute(LOCATION_SESSION_ATTRIBUTE);
         if (locationId != null) {
             this.setSessionLocationId(locationId);
@@ -63,19 +48,6 @@ public class UiSessionContext extends SessionContext {
                 throw new IllegalStateException("Can't handle users with multiple provider accounts");
             } else if (providers.size() == 1) {
                 currentProvider = providers.iterator().next();
-            }
-        }
-        
-        String patientId = request.getParameter("patientId");
-        if (StringUtils.isNotEmpty(patientId)) {
-            try {
-            	currentPatient = patientService.getPatient(Integer.valueOf(patientId));
-                if (currentPatient != null) {
-                    Location visitLocation = adtService.getLocationThatSupportsVisits(sessionLocation);
-                    activeVisit = adtService.getActiveVisit(currentPatient, visitLocation);
-                }
-            } catch (Exception ex) {
-                // don't fail, even if the patientId or patient parameter isn't as expected
             }
         }
     }
@@ -127,13 +99,5 @@ public class UiSessionContext extends SessionContext {
 
     public Locale getLocale() {
         return userContext.getLocale();
-    }
-    
-    public VisitDomainWrapper getActiveVisit() {
-        return activeVisit;
-    }
-
-    public void setActiveVisit(VisitDomainWrapper activeVisit) {
-        this.activeVisit = activeVisit;
     }
 }
