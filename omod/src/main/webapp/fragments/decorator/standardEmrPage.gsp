@@ -17,6 +17,7 @@
     <body>
         <script type="text/javascript">
             var OPENMRS_CONTEXT_PATH = '${ ui.contextPath() }';
+            window.translations = window.translations || {};
         </script>
 
 ${ ui.includeFragment("appui", "header") }
