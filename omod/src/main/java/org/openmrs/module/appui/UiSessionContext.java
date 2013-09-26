@@ -1,10 +1,5 @@
 package org.openmrs.module.appui;
 
-import java.util.Collection;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.openmrs.Location;
 import org.openmrs.Provider;
 import org.openmrs.User;
@@ -15,6 +10,10 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.context.UserContext;
 import org.openmrs.module.appframework.context.SessionContext;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
+import java.util.Locale;
+
 /**
  *
  */
@@ -22,15 +21,15 @@ public class UiSessionContext extends SessionContext {
 
     public final static String LOCATION_SESSION_ATTRIBUTE = "emrContext.sessionLocationId";
 
-    LocationService locationService;
+    protected LocationService locationService;
 
-    ProviderService providerService;
+    protected ProviderService providerService;
 
-    UserContext userContext;
+    protected UserContext userContext;
 
-    Provider currentProvider;
+    protected Provider currentProvider;
 
-    Location sessionLocation;
+    protected Location sessionLocation;
 
     public UiSessionContext(LocationService locationService, ProviderService providerService, HttpServletRequest request) {
         this.locationService = locationService;
