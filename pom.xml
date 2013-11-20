@@ -38,6 +38,7 @@
         <appframeworkModuleVersion>2.0</appframeworkModuleVersion>
         <uiframeworkModuleVersion>3.0</uiframeworkModuleVersion>
         <emrapiModuleVersion>1.0</emrapiModuleVersion>
+        <uicommonsModuleVersion>1.0</uicommonsModuleVersion>
     </properties>
 
     <dependencies>

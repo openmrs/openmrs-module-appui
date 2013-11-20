@@ -26,6 +26,9 @@
 		<require_module version="${emrapiModuleVersion}">
 			org.openmrs.module.emrapi
 		</require_module>
+        <require_module version="${uicommonsModuleVersion}">
+            org.openmrs.module.uicommons
+        </require_module>
 	</require_modules>
 	<!-- / Required Modules -->
 	
