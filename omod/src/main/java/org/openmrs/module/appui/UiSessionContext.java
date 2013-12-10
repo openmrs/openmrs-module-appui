@@ -8,15 +8,15 @@ import org.openmrs.api.LocationService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.UserContext;
+import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.context.SessionContext;
+import org.openmrs.module.appui.context.UserContextModel;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.Collection;
 import java.util.Locale;
 
-/**
- *
- */
 public class UiSessionContext extends SessionContext {
 
     public final static String LOCATION_SESSION_ATTRIBUTE = "emrContext.sessionLocationId";
@@ -30,6 +30,11 @@ public class UiSessionContext extends SessionContext {
     protected Provider currentProvider;
 
     protected Location sessionLocation;
+
+    // default constructor for testing
+    public UiSessionContext() {
+
+    }
 
     public UiSessionContext(LocationService locationService, ProviderService providerService, HttpServletRequest request) {
         this.locationService = locationService;
@@ -98,5 +103,17 @@ public class UiSessionContext extends SessionContext {
 
     public Locale getLocale() {
         return userContext.getLocale();
+    }
+
+    public AppContextModel generateAppContextModel() {
+        AppContextModel model = new AppContextModel();
+        model.put("user", new UserContextModel(userContext));
+        return model;
+    }
+
+
+    // for injecting mock user context during testing
+    public void setUserContext(UserContext userContext) {
+        this.userContext = userContext;
     }
 }
