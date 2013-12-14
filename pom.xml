@@ -35,7 +35,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <openMRSVersion>1.9.1</openMRSVersion>
-        <appframeworkModuleVersion>2.0</appframeworkModuleVersion>
+        <appframeworkModuleVersion>2.1-SNAPSHOT</appframeworkModuleVersion>
         <uiframeworkModuleVersion>3.0</uiframeworkModuleVersion>
         <emrapiModuleVersion>1.0</emrapiModuleVersion>
         <uicommonsModuleVersion>1.0</uicommonsModuleVersion>
