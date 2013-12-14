@@ -10,7 +10,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.context.UserContext;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.context.SessionContext;
-import org.openmrs.module.appui.context.UserContextModel;
+import org.openmrs.module.appui.simplifier.UserSimplifier;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,7 +31,10 @@ public class UiSessionContext extends SessionContext {
 
     protected Location sessionLocation;
 
-    // default constructor for testing
+
+    /**
+     * Default constructor users for testing
+     */
     public UiSessionContext() {
 
     }
@@ -107,12 +110,14 @@ public class UiSessionContext extends SessionContext {
 
     public AppContextModel generateAppContextModel() {
         AppContextModel model = new AppContextModel();
-        model.put("user", new UserContextModel(userContext));
+        model.put("user", new UserSimplifier().convert(userContext.getAuthenticatedUser()));
         return model;
     }
 
 
-    // for injecting mock user context during testing
+    /**
+     * For injecting  mock users during testing
+     */
     public void setUserContext(UserContext userContext) {
         this.userContext = userContext;
     }
