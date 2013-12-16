@@ -2,7 +2,6 @@ package org.openmrs.module.appui.simplifier;
 
 import org.openmrs.Privilege;
 import org.openmrs.User;
-import org.openmrs.module.appui.util.MapScriptable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,13 +38,13 @@ public class UserSimplifier {
             simplePrivilege.put("uuid", privilege.getUuid());
             simplePrivilege.put("retired", privilege.getRetired().toString());
 
-            simplePrivileges.add(new MapScriptable(simplePrivilege));
+            simplePrivileges.add(simplePrivilege);
         }
 
         simpleUser.put("privileges", simplePrivileges);
         simpleUser.put("fn", new UserConverterUtils(user));
 
-        return new MapScriptable(simpleUser);
+        return simpleUser;
     }
 
     /**

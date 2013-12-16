@@ -71,10 +71,10 @@ public class UserSimplifierComponentTest {
 
         AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null);
 
-        assertTrue(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('Delete Patients')"), appContextModel));
-        assertTrue(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients') || user.fn.hasPrivilege('Delete Patients')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients') && user.fn.hasPrivilege('Delete Patients')"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('View Patients')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('Delete Patients')"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('View Patients') || user.get('fn').hasPrivilege('Delete Patients')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('View Patients') && user.get('fn').hasPrivilege('Delete Patients')"), appContextModel));
 
     }
 
