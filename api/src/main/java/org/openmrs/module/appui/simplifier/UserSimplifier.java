@@ -68,5 +68,9 @@ public class UserSimplifier {
 
             return false;
         }
+
+        public boolean isAdmin(){
+            return user.isSuperUser();
+        }
     }
 }
