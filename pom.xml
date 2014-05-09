@@ -37,7 +37,6 @@
         <openMRSVersion>1.9.1</openMRSVersion>
         <appframeworkModuleVersion>2.1</appframeworkModuleVersion>
         <uiframeworkModuleVersion>3.0</uiframeworkModuleVersion>
-        <emrapiModuleVersion>1.0</emrapiModuleVersion>
         <uicommonsModuleVersion>1.2</uicommonsModuleVersion>
     </properties>
 
@@ -74,12 +73,6 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>uiframework-api</artifactId>
             <version>${uiframeworkModuleVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-         <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>emrapi-api</artifactId>
-            <version>${emrapiModuleVersion}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
