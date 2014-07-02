@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -29,6 +30,8 @@ import java.util.Map;
 public class AppUiArgumentProvider implements PageModelConfigurator, FragmentModelConfigurator,
         PossiblePageControllerArgumentProvider, PossibleFragmentControllerArgumentProvider,
         PossibleFragmentActionArgumentProvider {
+
+    private Pattern onlyDigits = Pattern.compile("\\d+");
 
     @Autowired
     LocationService locationService;
@@ -88,9 +91,15 @@ public class AppUiArgumentProvider implements PageModelConfigurator, FragmentMod
 	
 	private Patient getPatient(HttpServletRequest request) {
 		String patientId = request.getParameter("patientId");
-		if (StringUtils.isNotEmpty(patientId)) {
+
+        if (StringUtils.isNotEmpty(patientId)) {
 			try {
-				return patientService.getPatient(Integer.valueOf(patientId));
+				if (onlyDigits.matcher(patientId).matches()) {
+                    return patientService.getPatient(Integer.valueOf(patientId));
+                }
+                else {
+                    return patientService.getPatientByUuid(patientId);
+                }
 			}
 			catch (Exception ex) {
 				// don't fail, even if the patientId parameter isn't as expected
