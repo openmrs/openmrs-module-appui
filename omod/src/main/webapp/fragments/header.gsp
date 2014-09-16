@@ -41,11 +41,11 @@
             var locationId = element.attr("locationId");
             var locationName = element.attr("locationName");
 
-            var data = "locationId=" + locationId;
+            var data = { locationId: locationId };
 
             jq("#spinner").show();
 
-            jq.post("/${ contextPath }/mirebalais/standard.page", data, function (returnedData) {
+            jq.post(emr.fragmentActionLink("appui", "session", "setLocation", data), function (data) {
                 sessionLocationModel.id(locationId);
                 sessionLocationModel.text(locationName);
                 jq('#session-location li').removeClass('selected');

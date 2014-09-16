@@ -13,6 +13,7 @@ import org.openmrs.module.appframework.context.SessionContext;
 import org.openmrs.module.appui.simplifier.UserSimplifier;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import java.util.Collection;
 import java.util.Locale;
@@ -30,6 +31,8 @@ public class UiSessionContext extends SessionContext {
     protected Provider currentProvider;
 
     protected Location sessionLocation;
+    
+    protected HttpSession session;
 
 
     /**
@@ -42,7 +45,8 @@ public class UiSessionContext extends SessionContext {
     public UiSessionContext(LocationService locationService, ProviderService providerService, HttpServletRequest request) {
         this.locationService = locationService;
         this.providerService = providerService;
-        Integer locationId = (Integer) request.getSession().getAttribute(LOCATION_SESSION_ATTRIBUTE);
+        this.session = request.getSession();
+        Integer locationId = (Integer) session.getAttribute(LOCATION_SESSION_ATTRIBUTE);
         if (locationId != null) {
             this.setSessionLocationId(locationId);
             sessionLocation = locationService.getLocation(locationId);
@@ -64,7 +68,11 @@ public class UiSessionContext extends SessionContext {
     }
 
     public void setSessionLocation(Location sessionLocation) {
+    	if (session != null) {
+            session.setAttribute(LOCATION_SESSION_ATTRIBUTE, sessionLocation.getId());
+        }
         this.sessionLocation = sessionLocation;
+        this.sessionLocationId = sessionLocation.getId();
     }
 
     @Override
