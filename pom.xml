@@ -3,7 +3,7 @@
 
     <groupId>org.openmrs.module</groupId>
     <artifactId>appui</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
     <packaging>pom</packaging>
     <name>App UI Module</name>
     <description>Support for using athe App Framework's context in the UI Framework</description>
@@ -24,7 +24,8 @@
         <connection>scm:git:git@github.com:openmrs/openmrs-module-appui.git</connection>
         <developerConnection>scm:git:git@github.com:openmrs/openmrs-module-appui.git</developerConnection>
         <url>https://github.com/openmrs/openmrs-module-appui</url>
-    </scm>
+      <tag>1.2</tag>
+  </scm>
 
     <modules>
         <module>api</module>
