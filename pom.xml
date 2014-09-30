@@ -37,7 +37,9 @@
         <distro.groupId>org.openmrs.distro</distro.groupId>
         <distro.artifactId>referenceapplication</distro.artifactId>
         <distro.version>2.1-SNAPSHOT</distro.version>
+        <openMRSVersion>1.9.1</openMRSVersion>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <!-- Importing versions from refapp distro -->
