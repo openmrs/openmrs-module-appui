@@ -17,6 +17,9 @@
     <body>
         <script type="text/javascript">
             var OPENMRS_CONTEXT_PATH = '${ ui.contextPath() }';
+            window.sessionContext = window.sessionContext || {
+                locale: "${ ui.escapeJs(sessionContext.locale.toString()) }"
+            };
             window.translations = window.translations || {};
         </script>
 
