@@ -9,6 +9,9 @@
     }
     def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("uicommons", "images/logo/openmrs-with-title-small.png")
     def logoLinkUrl = addContextPath(configSettings?."logo-link-url") ?: "/${ org.openmrs.ui.framework.WebConstants.CONTEXT_PATH }"
+
+    def multipleLoginLocations = (loginLocations.size > 1);
+
 %>
 <script type="text/javascript">
 
@@ -18,51 +21,56 @@
     };
 
     jq(function () {
-        jq(".change-location a").click(function () {
-            jq('#session-location').show();
-            jq(this).addClass('focus');
-            jq(".change-location a i:nth-child(3)").removeClass("icon-caret-down");
-            jq(".change-location a i:nth-child(3)").addClass("icon-caret-up");
-        });
-
-        jq('#session-location').mouseleave(function () {
-            jq('#session-location').hide();
-            jq(".change-location a").removeClass('focus');
-            jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
-            jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
-        });
 
         ko.applyBindings(sessionLocationModel, jq('.change-location').get(0));
         sessionLocationModel.id(${ sessionContext.sessionLocationId });
         sessionLocationModel.text("${ ui.format(sessionContext.sessionLocation) }");
 
-        jq("#session-location ul.select li").click(function (event) {
-            var element = jq(event.target);
-            var locationId = element.attr("locationId");
-            var locationName = element.attr("locationName");
+        // we only want to activate the functionality to change location if there are actually multiple login locations
+        <% if (multipleLoginLocations) { %>
 
-            var data = { locationId: locationId };
+            jq(".change-location a").click(function () {
+                jq('#session-location').show();
+                jq(this).addClass('focus');
+                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-down");
+                jq(".change-location a i:nth-child(3)").addClass("icon-caret-up");
+            });
 
-            jq("#spinner").show();
+            jq('#session-location').mouseleave(function () {
+                jq('#session-location').hide();
+                jq(".change-location a").removeClass('focus');
+                jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
+                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
+            });
 
-            jq.post(emr.fragmentActionLink("appui", "session", "setLocation", data), function (data) {
-                sessionLocationModel.id(locationId);
-                sessionLocationModel.text(locationName);
-                jq('#session-location li').removeClass('selected');
-                element.addClass('selected');
-                jq("#spinner").hide();
+            jq("#session-location ul.select li").click(function (event) {
+                var element = jq(event.target);
+                var locationId = element.attr("locationId");
+                var locationName = element.attr("locationName");
 
-                //this is being used for dispensing app to update medication list
-                if (reloadPageToUpdateListMedicationDispensingByLocation != undefined) {
-                    reloadPageToUpdateListMedicationDispensingByLocation();
-                }
-            })
+                var data = { locationId: locationId };
 
-            jq('#session-location').hide();
-            jq(".change-location a").removeClass('focus');
-            jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
-            jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
-        });
+                jq("#spinner").show();
+
+                jq.post(emr.fragmentActionLink("appui", "session", "setLocation", data), function (data) {
+                    sessionLocationModel.id(locationId);
+                    sessionLocationModel.text(locationName);
+                    jq('#session-location li').removeClass('selected');
+                    element.addClass('selected');
+                    jq("#spinner").hide();
+
+                    //this is being used for dispensing app to update medication list
+                    if (reloadPageToUpdateListMedicationDispensingByLocation != undefined) {
+                        reloadPageToUpdateListMedicationDispensingByLocation();
+                    }
+                })
+
+                jq('#session-location').hide();
+                jq(".change-location a").removeClass('focus');
+                jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
+                jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
+            });
+        <% } %>
     });
 
 </script>
@@ -83,7 +91,9 @@
             <a href="#">
                 <i class="icon-map-marker small"></i>
                 <span data-bind="text: text"></span>
-                <i class="icon-caret-down link"></i>
+                <% if (multipleLoginLocations) { %>
+                    <i class="icon-caret-down link"></i>
+                <% } %>
             </a>
         </li>
         <li class="logout">
