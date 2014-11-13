@@ -58,11 +58,7 @@
                     jq('#session-location li').removeClass('selected');
                     element.addClass('selected');
                     jq("#spinner").hide();
-
-                    //this is being used for dispensing app to update medication list
-                    if (reloadPageToUpdateListMedicationDispensingByLocation != undefined) {
-                        reloadPageToUpdateListMedicationDispensingByLocation();
-                    }
+                    jq(document).trigger("sessionLocationChanged");
                 })
 
                 jq('#session-location').hide();
