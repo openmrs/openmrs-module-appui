@@ -69,7 +69,7 @@ public class UserSimplifierComponentTest {
 
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
 
-        AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null);
+        AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
         assertTrue(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('View Patients')"), appContextModel));
         assertFalse(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('Delete Patients')"), appContextModel));
