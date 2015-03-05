@@ -20,7 +20,6 @@ import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
-import org.openmrs.util.PrivilegeConstants;
 
 import java.util.List;
 import java.util.Map;
@@ -30,16 +29,22 @@ import java.util.Map;
  */
 public class HeaderFragmentController {
 
+    // RA-592: don't use PrivilegeConstants.VIEW_LOCATIONS
+    private static final String GET_LOCATIONS = "Get Locations";
+    private static final String VIEW_LOCATIONS = "View Locations";
+
     public void controller(@SpringBean AppFrameworkService appFrameworkService, FragmentModel fragmentModel) {
         try {
-            Context.addProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
+            Context.addProxyPrivilege(GET_LOCATIONS);
+            Context.addProxyPrivilege(VIEW_LOCATIONS);
             fragmentModel.addAttribute("loginLocations", appFrameworkService.getLoginLocations());
 
             List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
             Map<String, Object> configSettings = exts.size() > 0 ? exts.get(0).getExtensionParams() : null;
             fragmentModel.addAttribute("configSettings", configSettings);
         } finally {
-            Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
+            Context.removeProxyPrivilege(GET_LOCATIONS);
+            Context.removeProxyPrivilege(VIEW_LOCATIONS);
         }
     }
 
