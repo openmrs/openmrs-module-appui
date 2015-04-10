@@ -149,7 +149,7 @@ public class UiSessionContext extends SessionContext {
      */
     public class AppContextModelUtils {
 
-        public boolean arrayHasMemberWithProperty(List list, String key, Object value) throws Exception {
+        public boolean hasMemberWithProperty(List list, String key, Object value) throws Exception {
             if (list == null || value == null) {
                 return false;
             }
