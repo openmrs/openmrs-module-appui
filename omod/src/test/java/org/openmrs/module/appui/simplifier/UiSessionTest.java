@@ -143,7 +143,7 @@ public class UiSessionTest {
     }
 
     @Test
-    public void shouldTestForKeyValuePairInArray() {
+    public void shouldTestForMemberWithProperty() {
 
         Location sessionLocation = new Location();
         SimpleObject sessionLocationRestRep = new SimpleObject();
@@ -166,14 +166,14 @@ public class UiSessionTest {
 
         AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
-        assertTrue(service.checkRequireExpression(extensionRequiring("util.arrayHasMemberWithKeyValuePair(sessionLocation.get('tags'), 'display', 'Admit')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.arrayHasMemberWithKeyValuePair(sessionLocation.get('tags'), 'display', 'Inpatient')"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("util.arrayHasMemberWithProperty(sessionLocation.get('tags'), 'display', 'Admit')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("util.arrayHasMemberWithProperty(sessionLocation.get('tags'), 'display', 'Inpatient')"), appContextModel));
 
         // confirm that it doesn't fail if no matching key
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.arrayHasMemberWithKeyValuePair(sessionLocation.get('tags'), 'bogus', 'Transfer')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("util.arrayHasMemberWithProperty(sessionLocation.get('tags'), 'bogus', 'Transfer')"), appContextModel));
 
         // confirm that it doesn't fail if no matching array
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.arrayHasMemberWithKeyValuePair(sessionLocation.get('bogus'), 'display', 'Transfer')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("util.arrayHasMemberWithProperty(sessionLocation.get('bogus'), 'display', 'Transfer')"), appContextModel));
 
     }
 

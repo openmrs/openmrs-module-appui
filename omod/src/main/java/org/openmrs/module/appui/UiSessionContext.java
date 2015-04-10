@@ -1,5 +1,6 @@
 package org.openmrs.module.appui;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.openmrs.Location;
 import org.openmrs.Provider;
 import org.openmrs.User;
@@ -17,7 +18,6 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -149,19 +149,16 @@ public class UiSessionContext extends SessionContext {
      */
     public class AppContextModelUtils {
 
-        public boolean arrayHasMemberWithKeyValuePair(List<Map<String, Object>> array, String key, Object value) {
-
-            if (array == null) {
+        public boolean arrayHasMemberWithProperty(List list, String key, Object value) throws Exception {
+            if (list == null || value == null) {
                 return false;
             }
-
-            for (Map<String, Object> element : array) {
-                if (element.containsKey(key) && element.get(key).equals(value)) {
+            for (Object element : list) {
+                if (value.equals(PropertyUtils.getProperty(element, key))) {
                     return true;
                 }
             }
             return false;
-
         }
     }
 
