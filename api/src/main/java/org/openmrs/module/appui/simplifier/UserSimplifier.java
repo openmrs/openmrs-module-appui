@@ -13,6 +13,9 @@ import java.util.Map;
  * the rest web services module; this class does *not* yet populate the simple representation with all of the fields
  * that the web services module does
  * Specifically, it would be good to convert Roles here as well as privileges
+ *
+ * TODO: implement this using the standard REST representation (using ConversionUtil.convertToRepresentation as we do for sessionLocation in UiSessionContexet.generateAppContextModel)
+ *
  */
 public class UserSimplifier {
 
@@ -49,6 +52,7 @@ public class UserSimplifier {
 
     /**
      * Utility methods that are bound to the context to ease evaluation in Javascript
+     * TODO: keep these here for legacy usage, but possibly deprecate and create similar methods in AppContextModelUtils (in UiSessionContext)?
      */
     public class UserConverterUtils {
 

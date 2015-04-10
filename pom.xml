@@ -41,6 +41,7 @@
         <appframeworkModuleVersion>2.1</appframeworkModuleVersion>
         <uiframeworkModuleVersion>3.0</uiframeworkModuleVersion>
         <uicommonsModuleVersion>1.2</uicommonsModuleVersion>
+        <webservicesRestVersion>2.11</webservicesRestVersion>
     </properties>
 
     <dependencyManagement>
@@ -72,7 +73,6 @@
             <artifactId>openmrs-test</artifactId>
             <type>pom</type>
         </dependency>
-
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>appframework-api</artifactId>
@@ -81,6 +81,15 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>uiframework-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>webservices.rest-omod-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>serialization.xstream-api</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

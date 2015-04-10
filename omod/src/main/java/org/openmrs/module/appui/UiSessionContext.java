@@ -11,12 +11,15 @@ import org.openmrs.api.context.UserContext;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.context.SessionContext;
 import org.openmrs.module.appui.simplifier.UserSimplifier;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import org.openmrs.module.webservices.rest.web.ConversionUtil;
+import org.openmrs.module.webservices.rest.web.representation.Representation;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class UiSessionContext extends SessionContext {
 
@@ -119,6 +122,17 @@ public class UiSessionContext extends SessionContext {
     public AppContextModel generateAppContextModel() {
         AppContextModel model = new AppContextModel();
         model.put("user", new UserSimplifier().convert(userContext.getAuthenticatedUser()));
+
+        if (sessionLocation != null) {
+            model.put("sessionLocation", ConversionUtil.convertToRepresentation(sessionLocation, Representation.DEFAULT));
+        }
+
+        if (currentProvider != null) {
+            model.put("currentProvider", ConversionUtil.convertToRepresentation(currentProvider, Representation.DEFAULT));
+        }
+
+        model.put("util", new AppContextModelUtils());
+
         return model;
     }
 
@@ -129,4 +143,28 @@ public class UiSessionContext extends SessionContext {
     public void setUserContext(UserContext userContext) {
         this.userContext = userContext;
     }
+
+    /**
+     * Utility methods that are bound to the context to ease evaluation in Javascript
+     */
+    public class AppContextModelUtils {
+
+        public boolean arrayHasMemberWithKeyValuePair(List<Map<String, Object>> array, String key, Object value) {
+
+            if (array == null) {
+                return false;
+            }
+
+            for (Map<String, Object> element : array) {
+                if (element.containsKey(key) && element.get(key).equals(value)) {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+    }
+
 }
+
+
