@@ -84,7 +84,7 @@
             ${context.authenticatedUser.username ?: context.authenticatedUser.systemId}
         </li>
         <li class="change-location">
-            <a href="#">
+            <a href="javascript:void(0);"">
                 <i class="icon-map-marker small"></i>
                 <span data-bind="text: text"></span>
                 <% if (multipleLoginLocations) { %>
