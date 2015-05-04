@@ -6,7 +6,7 @@
     <version>1.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>App UI Module</name>
-    <description>Support for using athe App Framework's context in the UI Framework</description>
+    <description>Support for using the App Framework's context in the UI Framework</description>
     <url>https://wiki.openmrs.org/display/docs/App+UI+Module+Module</url>
 
     <developers>
