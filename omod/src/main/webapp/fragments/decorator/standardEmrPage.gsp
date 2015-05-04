@@ -4,6 +4,8 @@
 	ui.includeFragment("appui", "standardEmrIncludes")
 
 	def title = config.title ?: ui.message("emr.title")
+    def timezoneOffset = -Calendar.getInstance().getTimeZone().getOffset(System.currentTimeMillis()) / 60000
+    def jsTimezone = new java.text.SimpleDateFormat("ZZ").format(new Date());
 %>
 
 <!DOCTYPE html>
@@ -21,6 +23,12 @@
                 locale: "${ ui.escapeJs(sessionContext.locale.toString()) }"
             };
             window.translations = window.translations || {};
+            var openmrs = {
+                server: {
+                    timezone: "${ jsTimezone }",
+                    timezoneOffset: ${ timezoneOffset }
+                }
+            }
         </script>
 
 ${ ui.includeFragment("appui", "header") }
