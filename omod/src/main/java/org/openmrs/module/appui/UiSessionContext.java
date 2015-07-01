@@ -14,6 +14,7 @@ import org.openmrs.module.appframework.context.SessionContext;
 import org.openmrs.module.appui.simplifier.UserSimplifier;
 import org.openmrs.module.webservices.rest.web.ConversionUtil;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
+import org.openmrs.util.PrivilegeConstants;
 
 import java.util.Collection;
 import java.util.List;
@@ -57,7 +58,13 @@ public class UiSessionContext extends SessionContext {
         userContext = Context.getUserContext();
         if (userContext != null && userContext.getAuthenticatedUser() != null) {
             User currentUser = userContext.getAuthenticatedUser();
-            Collection<Provider> providers = providerService.getProvidersByPerson(currentUser.getPerson(), false);
+            Collection<Provider> providers;
+            try {
+                Context.addProxyPrivilege(PrivilegeConstants.VIEW_PROVIDERS);
+                providers = providerService.getProvidersByPerson(currentUser.getPerson(), false);
+            } finally {
+                Context.removeProxyPrivilege(PrivilegeConstants.VIEW_PROVIDERS);
+            }
             if (providers.size() > 1) {
                 throw new IllegalStateException("Can't handle users with multiple provider accounts");
             } else if (providers.size() == 1) {
