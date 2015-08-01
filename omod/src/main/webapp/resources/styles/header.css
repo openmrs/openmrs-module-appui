@@ -1,0 +1,17 @@
+#user-account-menu{
+    position: absolute;
+    padding: 5px;
+    background-color: #5B57A6;
+    color: white;
+    text-align: left;
+    z-index: 50;
+    border-radius: 4px;
+}
+
+.appui-toggle {
+    display: none;
+}
+
+#user-account-menu li{
+    display: list-item; padding: 0; margin: 10px;
+}

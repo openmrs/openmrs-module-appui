@@ -12,6 +12,8 @@
 
     def multipleLoginLocations = (loginLocations.size > 1);
 
+    def enableUserAccountExt = userAccountMenuItems.size > 0;
+
 %>
 <script type="text/javascript">
 
@@ -66,6 +68,20 @@
                 jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
                 jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
             });
+
+            <% if (enableUserAccountExt) { %>
+            jq('.identifier').hover(
+                function(){
+                    jq('.appui-toggle').show();
+                    jq('.appui-icon-caret-down').hide();
+                },
+                 function(){
+                    jq('.appui-toggle').hide();
+                    jq('.appui-icon-caret-down').show();
+                 }
+            );
+            jq('.identifier').css('cursor', 'pointer');
+            <% } %>
         <% } %>
     });
 
@@ -82,9 +98,21 @@
         <li class="identifier">
             <i class="icon-user small"></i>
             ${context.authenticatedUser.username ?: context.authenticatedUser.systemId}
+            <% if (enableUserAccountExt) { %>
+            <i class="icon-caret-down appui-icon-caret-down"></i><i class="icon-caret-up appui-toggle" style="display: none;"></i>
+                <ul id="user-account-menu" class="appui-toggle">
+                    <% userAccountMenuItems.each{ menuItem  -> %>
+                    <li>
+                        <a id="" href="/${ contextPath }/${ menuItem.url }">
+                            ${ ui.message(menuItem.label) }
+                        </a>
+                    </li>
+                    <% } %>
+                </ul>
+            <% } %>
         </li>
         <li class="change-location">
-            <a href="javascript:void(0);"">
+            <a href="javascript:void(0);">
                 <i class="icon-map-marker small"></i>
                 <span data-bind="text: text"></span>
                 <% if (multipleLoginLocations) { %>
