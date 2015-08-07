@@ -14,6 +14,7 @@
         <title>${ title ?: "OpenMRS" }</title>
         <link rel="shortcut icon" type="image/ico" href="/${ ui.contextPath() }/images/openmrs-favicon.ico"/>
         <link rel="icon" type="image/png\" href="/${ ui.contextPath() }/images/openmrs-favicon.png"/>
+        <% ui.includeCss("appui", "header.css") %>
         ${ ui.resourceLinks() }
     </head>
     <body>
