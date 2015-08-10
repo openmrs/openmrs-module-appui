@@ -99,7 +99,7 @@
             <i class="icon-user small"></i>
             ${context.authenticatedUser.username ?: context.authenticatedUser.systemId}
             <% if (enableUserAccountExt) { %>
-            <i class="icon-caret-down appui-icon-caret-down"></i><i class="icon-caret-up appui-toggle" style="display: none;"></i>
+            <i class="icon-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle" style="display: none;"></i>
                 <ul id="user-account-menu" class="appui-toggle">
                     <% userAccountMenuItems.each{ menuItem  -> %>
                     <li>
