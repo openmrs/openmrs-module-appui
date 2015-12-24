@@ -22,6 +22,8 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.lang.reflect.Field;
+
 public class UiSessionContext extends SessionContext {
 
     public final static String LOCATION_SESSION_ATTRIBUTE = "emrContext.sessionLocationId";
@@ -46,6 +48,33 @@ public class UiSessionContext extends SessionContext {
 
     }
 
+    public String getViewProvidersPrivilege()
+    {
+    	PrivilegeConstants privilegeConstants = new PrivilegeConstants();
+    	String viewProvidersPrivilege = "";
+    	try {
+    		// openmrsVersion 1.9
+    		Class<?> privilegeConstantsClass = privilegeConstants.getClass();
+    		Field viewProvidersPrivilegeConstant = privilegeConstantsClass.getDeclaredField("VIEW_PROVIDERS");
+    		viewProvidersPrivilege = (String)viewProvidersPrivilegeConstant.get(privilegeConstants);
+    	} catch (NoSuchFieldException ex) {
+    		// do nothing
+ 		} catch (IllegalAccessException ex) {
+			// do nothing
+		}
+    	try {
+    		// openmrsVersion 2.0
+    		Class<?> privilegeConstantsClass = privilegeConstants.getClass();
+    		Field viewProvidersPrivilegeConstant = privilegeConstantsClass.getDeclaredField("GET_PROVIDERS");
+    		viewProvidersPrivilege = (String)viewProvidersPrivilegeConstant.get(privilegeConstants);
+    	} catch (NoSuchFieldException ex) {
+    		// do nothing
+ 		} catch (IllegalAccessException ex) {
+			// do nothing
+		}
+    	return viewProvidersPrivilege;
+    }
+    
     public UiSessionContext(LocationService locationService, ProviderService providerService, HttpServletRequest request) {
         this.locationService = locationService;
         this.providerService = providerService;
@@ -60,10 +89,10 @@ public class UiSessionContext extends SessionContext {
             User currentUser = userContext.getAuthenticatedUser();
             Collection<Provider> providers;
             try {
-                Context.addProxyPrivilege(PrivilegeConstants.VIEW_PROVIDERS);
+                Context.addProxyPrivilege(getViewProvidersPrivilege());
                 providers = providerService.getProvidersByPerson(currentUser.getPerson(), false);
             } finally {
-                Context.removeProxyPrivilege(PrivilegeConstants.VIEW_PROVIDERS);
+                Context.removeProxyPrivilege(getViewProvidersPrivilege());
             }
             if (providers.size() > 1) {
                 throw new IllegalStateException("Can't handle users with multiple provider accounts");
