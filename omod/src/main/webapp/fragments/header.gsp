@@ -69,20 +69,25 @@
                 jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
             });
 
-            <% if (enableUserAccountExt) { %>
+        <% } %>
+
+        <% if (enableUserAccountExt) { %>
+
             jq('.identifier').hover(
                 function(){
                     jq('.appui-toggle').show();
                     jq('.appui-icon-caret-down').hide();
                 },
-                 function(){
-                    jq('.appui-toggle').hide();
-                    jq('.appui-icon-caret-down').show();
-                 }
+                function(){
+                   jq('.appui-toggle').hide();
+                   jq('.appui-icon-caret-down').show();
+                }
             );
+
             jq('.identifier').css('cursor', 'pointer');
-            <% } %>
+
         <% } %>
+
     });
 
 </script>
