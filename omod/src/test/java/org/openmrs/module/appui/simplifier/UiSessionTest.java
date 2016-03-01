@@ -19,7 +19,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import javax.script.ScriptException;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertFalse;
@@ -46,36 +45,24 @@ public class UiSessionTest {
 
     @Before
     public void setup() {
-
-        doctor = new Role("Doctor");
-        admin = new Role("Admin");
-
-        viewPatients = new Privilege("View Patients");
-        viewPatients.setUuid("654-321");
-        viewPatients.setDescription("Ability to view patients");
-
-        editPatients = new Privilege("Edit Patients");
-
-        doctor.addPrivilege(viewPatients);
-
-        admin.addPrivilege(editPatients);
-        admin.addPrivilege(editPatients);
-
         user = new User();
-        user.setUsername("bobMeIn");
-        user.setUuid("123-456");
-        user.setSystemId("abc");
-        user.setRetired(true);
         userContext = mock(UserContext.class);
         when(userContext.getAuthenticatedUser()).thenReturn(user);
-
     }
 
     @Test
-    public void shouldTestAgainstSimpleUserInJavaScriptContext() throws Exception{
+    public void shouldTestAgainstUserInJavaScriptContext() throws Exception{
 
-        user.addRole(doctor);
-        user.addRole(admin);
+        SimpleObject userRestRep = new SimpleObject();
+        SimpleObject viewPatientsRestRep = new SimpleObject();
+        viewPatientsRestRep.put("name", "View Patients");
+        SimpleObject editPatientsRestRep = new SimpleObject();
+        editPatientsRestRep.put("name", "Edit Patients");
+
+        userRestRep.put("privileges", Arrays.asList(viewPatientsRestRep, editPatientsRestRep));
+
+        PowerMockito.mockStatic(ConversionUtil.class);
+        when(ConversionUtil.convertToRepresentation(user, Representation.DEFAULT)).thenReturn(userRestRep);
 
         UiSessionContext uiSessionContext = new UiSessionContext();
         uiSessionContext.setUserContext(userContext);

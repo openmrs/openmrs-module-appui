@@ -11,7 +11,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.context.UserContext;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.context.SessionContext;
-import org.openmrs.module.appui.simplifier.UserSimplifier;
 import org.openmrs.module.webservices.rest.web.ConversionUtil;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.util.PrivilegeConstants;
@@ -128,7 +127,8 @@ public class UiSessionContext extends SessionContext {
 
     public AppContextModel generateAppContextModel() {
         AppContextModel model = new AppContextModel();
-        model.put("user", new UserSimplifier().convert(userContext.getAuthenticatedUser()));
+
+        model.put("user", ConversionUtil.convertToRepresentation(userContext.getAuthenticatedUser(), Representation.DEFAULT));
 
         if (sessionLocation != null) {
             model.put("sessionLocation", ConversionUtil.convertToRepresentation(sessionLocation, Representation.DEFAULT));
