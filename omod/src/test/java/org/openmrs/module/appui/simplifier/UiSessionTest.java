@@ -19,6 +19,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import javax.script.ScriptException;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertFalse;
@@ -83,15 +84,14 @@ public class UiSessionTest {
 
         AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
-        assertTrue(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('Delete Patients')"), appContextModel));
-        assertTrue(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients') || user.fn.hasPrivilege('Delete Patients')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients') && user.fn.hasPrivilege('Delete Patients')"), appContextModel));
-
+        assertTrue(service.checkRequireExpression(extensionRequiring("hasMemberWithProperty(user.privileges, 'name', 'View Patients')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("hasMemberWithProperty(user.privileges, 'name', 'Delete Patients')"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("hasMemberWithProperty(user.privileges, 'name', 'View Patients') || hasMemberWithProperty(user.privileges, 'name', 'Delete Patients')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("hasMemberWithProperty(user.privileges, 'name', 'View Patients') && hasMemberWithProperty(user.privileges, 'name', 'Delete Patients')"), appContextModel));
     }
 
     @Test
-    public void shouldTestAgainstALocationInJavascript() {
+    public void shouldTestAgainstALocationInJavascript() throws Exception {
 
         Location sessionLocation = new Location();
         SimpleObject sessionLocationRestRep = new SimpleObject();
@@ -114,7 +114,7 @@ public class UiSessionTest {
     }
 
     @Test
-    public void shouldTagsTestAgainstALocationInJavascript() {
+    public void shouldTagsTestAgainstALocationInJavascript() throws Exception {
 
         Location sessionLocation = new Location();
         SimpleObject sessionLocationRestRep = new SimpleObject();
@@ -143,7 +143,7 @@ public class UiSessionTest {
     }
 
     @Test
-    public void shouldTestForMemberWithProperty() {
+    public void shouldTestForMemberWithProperty() throws Exception {
 
         Location sessionLocation = new Location();
         SimpleObject sessionLocationRestRep = new SimpleObject();
@@ -166,14 +166,14 @@ public class UiSessionTest {
 
         AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
-        assertTrue(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.tags, 'display', 'Admit')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.tags, 'display', 'Inpatient')"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("hasMemberWithProperty(sessionLocation.tags, 'display', 'Admit')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("hasMemberWithProperty(sessionLocation.tags, 'display', 'Inpatient')"), appContextModel));
 
         // confirm that it doesn't fail if no matching key
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.tags, 'bogus', 'Transfer')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("hasMemberWithProperty(sessionLocation.tags, 'bogus', 'Transfer')"), appContextModel));
 
         // confirm that it doesn't fail if no matching array
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.bogus, 'display', 'Transfer')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("hasMemberWithProperty(sessionLocation.bogus, 'display', 'Transfer')"), appContextModel));
 
     }
 
