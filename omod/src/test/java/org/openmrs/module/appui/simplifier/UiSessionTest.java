@@ -83,10 +83,10 @@ public class UiSessionTest {
 
         AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
-        assertTrue(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('View Patients')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('Delete Patients')"), appContextModel));
-        assertTrue(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('View Patients') || user.get('fn').hasPrivilege('Delete Patients')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("user.get('fn').hasPrivilege('View Patients') && user.get('fn').hasPrivilege('Delete Patients')"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('Delete Patients')"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients') || user.fn.hasPrivilege('Delete Patients')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("user.fn.hasPrivilege('View Patients') && user.fn.hasPrivilege('Delete Patients')"), appContextModel));
 
     }
 
@@ -108,8 +108,8 @@ public class UiSessionTest {
 
         AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
-        assertTrue(service.checkRequireExpression(extensionRequiring("sessionLocation.get('uuid') == '123abc'"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("sessionLocation.get('uuid') == '456efg'"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("sessionLocation.uuid == '123abc'"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("sessionLocation.uuid == '456efg'"), appContextModel));
 
     }
 
@@ -137,8 +137,8 @@ public class UiSessionTest {
 
         AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
-        assertTrue(service.checkRequireExpression(extensionRequiring("sessionLocation.get('uuid') == '123abc'"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("sessionLocation.get('uuid') == '456efg'"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("sessionLocation.uuid == '123abc'"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("sessionLocation.uuid == '456efg'"), appContextModel));
 
     }
 
@@ -166,14 +166,14 @@ public class UiSessionTest {
 
         AppFrameworkServiceImpl service = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
-        assertTrue(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.get('tags'), 'display', 'Admit')"), appContextModel));
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.get('tags'), 'display', 'Inpatient')"), appContextModel));
+        assertTrue(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.tags, 'display', 'Admit')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.tags, 'display', 'Inpatient')"), appContextModel));
 
         // confirm that it doesn't fail if no matching key
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.get('tags'), 'bogus', 'Transfer')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.tags, 'bogus', 'Transfer')"), appContextModel));
 
         // confirm that it doesn't fail if no matching array
-        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.get('bogus'), 'display', 'Transfer')"), appContextModel));
+        assertFalse(service.checkRequireExpression(extensionRequiring("util.hasMemberWithProperty(sessionLocation.bogus, 'display', 'Transfer')"), appContextModel));
 
     }
 
