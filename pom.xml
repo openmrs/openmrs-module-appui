@@ -37,11 +37,6 @@
         <distro.groupId>org.openmrs.distro</distro.groupId>
         <distro.artifactId>referenceapplication</distro.artifactId>
         <distro.version>LATEST</distro.version>
-        <openMRSVersion>1.9.1</openMRSVersion>
-        <appframeworkModuleVersion>2.1</appframeworkModuleVersion>
-        <uiframeworkModuleVersion>3.0</uiframeworkModuleVersion>
-        <uicommonsModuleVersion>1.2</uicommonsModuleVersion>
-        <webservicesRestVersion>2.11</webservicesRestVersion>
     </properties>
 
     <dependencyManagement>
