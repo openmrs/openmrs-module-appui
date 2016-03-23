@@ -108,6 +108,10 @@ public class UiSessionContext extends SessionContext {
         return currentProvider == null ? null : currentProvider.getProviderId();
     }
 
+    public HttpSession getSession() {
+        return session;
+    }
+
     public boolean isAuthenticated() {
         return userContext.isAuthenticated();
     }
