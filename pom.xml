@@ -175,5 +175,113 @@
             <url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
+	
+	<profiles>
+		
+		<profile>
+			<id>openmrs-1.9</id>
+			
+			<properties>
+		        <distro.groupId>org.openmrs.distro</distro.groupId>
+		        <distro.artifactId>referenceapplication</distro.artifactId>
+		        <distro.version>LATEST</distro.version>
+				<openMRSVersion>1.9.1</openMRSVersion>
+				<openMRSMinorVersion>1.9</openMRSMinorVersion>
+			</properties>
+			
+			<dependencyManagement>
+				<dependencies>
+		            <!-- Importing versions from refapp distro -->
+		            <dependency>
+		                <groupId>${distro.groupId}</groupId>
+		                <artifactId>${distro.artifactId}</artifactId>
+		                <version>${distro.version}</version>
+		                <type>pom</type>
+		                <scope>import</scope>
+		            </dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<dependency>
+					<groupId>org.openmrs.api</groupId>
+					<artifactId>openmrs-api</artifactId>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.api</groupId>
+					<artifactId>openmrs-api</artifactId>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.web</groupId>
+					<artifactId>openmrs-web</artifactId>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.web</groupId>
+					<artifactId>openmrs-web</artifactId>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.test</groupId>
+					<artifactId>openmrs-test</artifactId>
+					<type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
+		
+		<profile>
+			<id>openmrs-2.0</id>
+			
+			<properties>
+		        <distro.groupId>org.openmrs.distro</distro.groupId>
+		        <distro.artifactId>referenceapplication</distro.artifactId>
+		        <distro.version>LATEST</distro.version>
+				<openMRSVersion>2.0.0-SNAPSHOT</openMRSVersion>
+				<openMRSMinorVersion>2.0</openMRSMinorVersion>
+				<legacyUIVersion>1.0-SNAPSHOT</legacyUIVersion>
+			</properties>
+			
+			<dependencyManagement>
+				<dependencies>
+		            <!-- Importing versions from refapp distro -->
+		            <dependency>
+		                <groupId>${distro.groupId}</groupId>
+		                <artifactId>${distro.artifactId}</artifactId>
+		                <version>${distro.version}</version>
+		                <type>pom</type>
+		                <scope>import</scope>
+		            </dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<dependency>
+					<groupId>org.openmrs.api</groupId>
+					<artifactId>openmrs-api</artifactId>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.api</groupId>
+					<artifactId>openmrs-api</artifactId>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.web</groupId>
+					<artifactId>openmrs-web</artifactId>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.web</groupId>
+					<artifactId>openmrs-web</artifactId>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.test</groupId>
+					<artifactId>openmrs-test</artifactId>
+					<type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 </project>
