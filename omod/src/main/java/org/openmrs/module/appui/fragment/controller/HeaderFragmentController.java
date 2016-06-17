@@ -22,7 +22,6 @@ import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -54,9 +53,8 @@ public class HeaderFragmentController {
     }
 
     public void logout(HttpServletRequest request) throws IOException {
-        HttpSession httpSession = request.getSession();
         Context.logout();
-        httpSession.invalidate();
+        request.getSession().invalidate();
     }
 
 }
