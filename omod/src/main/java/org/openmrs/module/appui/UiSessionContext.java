@@ -59,10 +59,10 @@ public class UiSessionContext extends SessionContext {
             User currentUser = userContext.getAuthenticatedUser();
             Collection<Provider> providers;
             try {
-                Context.addProxyPrivilege(PrivilegeConstants.VIEW_PROVIDERS);
+                Context.addProxyPrivilege(PrivilegeConstants.GET_PROVIDERS);
                 providers = providerService.getProvidersByPerson(currentUser.getPerson(), false);
             } finally {
-                Context.removeProxyPrivilege(PrivilegeConstants.VIEW_PROVIDERS);
+                Context.removeProxyPrivilege(PrivilegeConstants.GET_PROVIDERS);
             }
             if (providers.size() > 1) {
                 throw new IllegalStateException("Can't handle users with multiple provider accounts");
