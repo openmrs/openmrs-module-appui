@@ -121,7 +121,7 @@
             </a>
         </li>
         <li class="logout">
-            <a href="/${contextPath}/logout">
+            <a href="${ ui.actionLink("logout", ["successUrl": contextPath]) }">
                 ${ui.message("emr.logout")}
                 <i class="icon-signout small"></i>
             </a>
