@@ -2,6 +2,7 @@ package org.openmrs.module.appui.rest;
 
 
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.ProviderService;
@@ -56,10 +57,12 @@ public class SessionController {
     public Object set(@RequestBody Map<String, Object> requestBody,
                       HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        if(requestBody.get("location") != null){
+        if(requestBody.get("location") != null && StringUtils.isNotBlank(requestBody.get("location").toString())){
             UiSessionContext uiSessionContext = new UiSessionContext(locationService, providerService, request);
             Location location = locationService.getLocationByUuid(requestBody.get("location").toString());
-            uiSessionContext.setSessionLocation(location);
+            if (location != null) {
+                uiSessionContext.setSessionLocation(location);
+            }
         }
 
 

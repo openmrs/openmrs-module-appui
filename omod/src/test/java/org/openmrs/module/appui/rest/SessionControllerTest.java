@@ -37,4 +37,58 @@ public class SessionControllerTest extends BaseModuleWebContextSensitiveTest{
 
     }
 
+    @Test
+    public void shouldNotSetSessionLocationDueToWrongUuid()throws Exception{
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/rest/" + RestConstants.VERSION_1 + "/appui/session");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        Object previousSession = sessionController.get(request,response);
+
+        request = new MockHttpServletRequest("POST", "/rest/" + RestConstants.VERSION_1 + "/appui/session");
+        response = new MockHttpServletResponse();
+        Object locationUuid = "0000000c-0000-0000-0000-2361b3446eb8";
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("location", locationUuid);
+        request.addHeader("Content-Type", "text/json");
+        Object res = sessionController.set(map, request,response);
+
+        assertTrue(res.equals(previousSession));
+    }
+    @Test
+    public void shouldNotSetSessionLocationDueToEmptyUuid()throws Exception{
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/rest/" + RestConstants.VERSION_1 + "/appui/session");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        Object previousSession = sessionController.get(request,response);
+
+        request = new MockHttpServletRequest("POST", "/rest/" + RestConstants.VERSION_1 + "/appui/session");
+        response = new MockHttpServletResponse();
+        Object locationUuid = "";
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("location", locationUuid);
+        request.addHeader("Content-Type", "text/json");
+        Object res = sessionController.set(map, request,response);
+
+        assertTrue(res.equals(previousSession));
+    }
+
+    @Test
+    public void shouldNotSetSessionLocationDueToNoUuidPassed()throws Exception{
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/rest/" + RestConstants.VERSION_1 + "/appui/session");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        Object previousSession = sessionController.get(request,response);
+
+        request = new MockHttpServletRequest("POST", "/rest/" + RestConstants.VERSION_1 + "/appui/session");
+        response = new MockHttpServletResponse();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        request.addHeader("Content-Type", "text/json");
+        Object res = sessionController.set(map, request,response);
+
+        assertTrue(res.equals(previousSession));
+    }
+
 }
