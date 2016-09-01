@@ -26,7 +26,7 @@
 
         ko.applyBindings(sessionLocationModel, jq('.change-location').get(0));
         sessionLocationModel.id(${ sessionContext.sessionLocationId });
-        sessionLocationModel.text("${ ui.escapeJs(ui.format(sessionContext.sessionLocation)) }");
+        sessionLocationModel.text("${ ui.escapeJs(ui.encodeHtmlContent(ui.format(sessionContext.sessionLocation))) }");
 
         // we only want to activate the functionality to change location if there are actually multiple login locations
         <% if (multipleLoginLocations) { %>
@@ -136,7 +136,7 @@
             <% loginLocations.sort { ui.format(it) }.each {
                 def selected = (it == sessionContext.sessionLocation) ? "selected" : ""
             %>
-            <li class="${selected}" locationId="${it.id}" locationName="${ui.escapeJs(ui.format(it))}">${ui.escapeJs(ui.format(it))}</li>
+            <li class="${selected}" locationId="${it.id}" locationName="${ui.escapeJs(ui.encodeHtmlContent(ui.format(it)))}">${ui.escapeJs(ui.encodeHtmlContent(ui.format(it)))}</li>
             <% } %>
         </ul>
     </div>
