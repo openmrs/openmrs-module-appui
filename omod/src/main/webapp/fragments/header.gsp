@@ -136,7 +136,7 @@
             <% loginLocations.sort { ui.format(it) }.each {
                 def selected = (it == sessionContext.sessionLocation) ? "selected" : ""
             %>
-            <li class="${selected}" locationId="${it.id}" locationName="${ui.escapeJs(ui.encodeHtmlContent(ui.format(it)))}">${ui.escapeJs(ui.encodeHtmlContent(ui.format(it)))}</li>
+            <li class="${selected}" locationId="${it.id}" locationName="${ui.encodeHtmlContent(ui.format(it))}">${ui.encodeHtmlContent(ui.format(it))}</li>
             <% } %>
         </ul>
     </div>
