@@ -48,6 +48,7 @@
             jq("#session-location ul.select li").click(function (event) {
                 var element = jq(event.target);
                 var locationId = element.attr("locationId");
+                var locationUuid = element.attr("locationUuid");
                 var locationName = element.attr("locationName");
 
                 var data = { locationId: locationId };
@@ -57,6 +58,7 @@
                 jq.post(emr.fragmentActionLink("appui", "session", "setLocation", data), function (data) {
                     sessionLocationModel.id(locationId);
                     sessionLocationModel.text(locationName);
+                    jq('#selected-location').attr("location-uuid", locationUuid);
                     jq('#session-location li').removeClass('selected');
                     element.addClass('selected');
                     jq("#spinner").hide();
@@ -114,7 +116,7 @@
         <li class="change-location">
             <a href="javascript:void(0);">
                 <i class="icon-map-marker small"></i>
-                <span data-bind="text: text"></span>
+                <span id="selected-location" data-bind="text: text" location-uuid="${ sessionContext.sessionLocation.uuid }"></span>
                 <% if (multipleLoginLocations) { %>
                     <i class="icon-caret-down link"></i>
                 <% } %>
@@ -136,7 +138,7 @@
             <% loginLocations.sort { ui.format(it) }.each {
                 def selected = (it == sessionContext.sessionLocation) ? "selected" : ""
             %>
-            <li class="${selected}" locationId="${it.id}" locationName="${ui.encodeHtmlContent(ui.format(it))}">${ui.encodeHtmlContent(ui.format(it))}</li>
+            <li class="${selected}" locationUuid="${it.uuid}" locationId="${it.id}" locationName="${ui.encodeHtmlContent(ui.format(it))}">${ui.encodeHtmlContent(ui.format(it))}</li>
             <% } %>
         </ul>
     </div>
