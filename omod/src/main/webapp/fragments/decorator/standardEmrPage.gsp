@@ -20,6 +20,7 @@
     <body>
         <script type="text/javascript">
             var OPENMRS_CONTEXT_PATH = '${ ui.contextPath() }';
+            var openmrsContextPath = '/' + OPENMRS_CONTEXT_PATH;
             window.sessionContext = window.sessionContext || {
                 locale: "${ ui.escapeJs(sessionContext.locale.toString()) }"
             };
