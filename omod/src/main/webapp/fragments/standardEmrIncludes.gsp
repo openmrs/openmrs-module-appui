@@ -1,5 +1,5 @@
 <%
-	ui.includeJavascript("uicommons", "jquery-1.8.3.min.js", Integer.MAX_VALUE)
+	ui.includeJavascript("uicommons", "jquery-1.12.4.min.js", Integer.MAX_VALUE)
 	ui.includeJavascript("uicommons", "jquery-ui-1.9.2.custom.min.js", Integer.MAX_VALUE - 10)
     ui.includeJavascript("uicommons", "underscore-min.js", Integer.MAX_VALUE - 10)
     ui.includeJavascript("uicommons", "knockout-2.1.0.js", Integer.MAX_VALUE - 15)
