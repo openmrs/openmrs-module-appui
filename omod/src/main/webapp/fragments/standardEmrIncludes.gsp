@@ -2,7 +2,7 @@
 	ui.includeJavascript("uicommons", "jquery-1.12.4.min.js", Integer.MAX_VALUE)
 	ui.includeJavascript("uicommons", "jquery-ui-1.9.2.custom.min.js", Integer.MAX_VALUE - 10)
     ui.includeJavascript("uicommons", "underscore-min.js", Integer.MAX_VALUE - 10)
-    ui.includeJavascript("uicommons", "knockout-2.1.0.js", Integer.MAX_VALUE - 15)
+    ui.includeJavascript("uicommons", "knockout-2.2.1.js", Integer.MAX_VALUE - 15)
     ui.includeJavascript("uicommons", "emr.js", Integer.MAX_VALUE - 15)
 
     ui.includeCss("uicommons", "styleguide/jquery-ui-1.9.2.custom.min.css", Integer.MAX_VALUE - 10)
