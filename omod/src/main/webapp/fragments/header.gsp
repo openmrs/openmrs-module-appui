@@ -116,7 +116,7 @@
         <li class="change-location">
             <a href="javascript:void(0);">
                 <i class="icon-map-marker small"></i>
-                <span id="selected-location" data-bind="text: text" location-uuid="${ sessionContext.sessionLocation.uuid }"></span>
+                <span id="selected-location" data-bind="text: text" location-uuid="${ sessionContext.sessionLocation ? sessionContext.sessionLocation.uuid : "" }"></span>
                 <% if (multipleLoginLocations) { %>
                     <i class="icon-caret-down link"></i>
                 <% } %>
