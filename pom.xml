@@ -36,7 +36,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uiframeworkVersion>3.10.1-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
-        <openMRSVersion>1.12.0</openMRSVersion>
+        <openMRSVersion>2.0.0</openMRSVersion>
         <serialization.xstreamVersion>0.2.12</serialization.xstreamVersion>
         <webservices.restVersion>2.16</webservices.restVersion>
     </properties>
