@@ -14,12 +14,10 @@
 package org.openmrs.module.appui;
 
 public class AppUiConstants {
-
-    public static final String SESSION_ATTRIBUTE_INFO_MESSAGE = "emr.infoMessage";
-
-    public static final String SESSION_ATTRIBUTE_TOAST_MESSAGE = "emr.toastMessage";
-
-    public static final String SESSION_ATTRIBUTE_MANUAL_LOGOUT = "manual-logout";
-
-    public static final String COOKIE_NAME_LAST_SESSION_LOCATION = "referenceapplication.lastSessionLocation";
+	
+	public static final String SESSION_ATTRIBUTE_INFO_MESSAGE = "emr.infoMessage";
+	
+	public static final String SESSION_ATTRIBUTE_TOAST_MESSAGE = "emr.toastMessage";
+	
+	public static final String SESSION_ATTRIBUTE_MANUAL_LOGOUT = "manual-logout";
 }
