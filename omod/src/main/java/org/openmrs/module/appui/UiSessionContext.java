@@ -82,6 +82,9 @@ public class UiSessionContext extends SessionContext {
         }
         this.sessionLocation = sessionLocation;
         this.sessionLocationId = sessionLocation.getId();
+        if (userContext != null && userContext.getAuthenticatedUser() != null) {
+            userContext.setLocationId(this.sessionLocationId);
+        }
     }
 
     @Override
