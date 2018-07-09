@@ -43,7 +43,8 @@ public class HeaderFragmentController {
             fragmentModel.addAttribute("loginLocations", appFrameworkService.getLoginLocations());
 
             List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
-            Map<String, Object> configSettings = exts.size() > 0 ? exts.get(0).getExtensionParams() : null;
+            Extension lowestOrderExtension = getLowestOrderExtenstion(exts);
+            Map<String, Object> configSettings = lowestOrderExtension.getExtensionParams();
             fragmentModel.addAttribute("configSettings", configSettings);
             List<Extension> userAccountMenuItems = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
             fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
@@ -51,6 +52,16 @@ public class HeaderFragmentController {
             Context.removeProxyPrivilege(GET_LOCATIONS);
             Context.removeProxyPrivilege(VIEW_LOCATIONS);
         }
+    }
+
+    public Extension getLowestOrderExtenstion(List<Extension> exts) {
+        Extension lowestOrderExtension = exts.size() > 0 ? exts.get(0) : null;
+        for(Extension ext : exts) {
+            if (lowestOrderExtension.getOrder() > ext.getOrder()) {
+                lowestOrderExtension = ext;
+            }
+        }
+        return lowestOrderExtension;
     }
 
     public void logout(HttpServletRequest request) throws IOException {
