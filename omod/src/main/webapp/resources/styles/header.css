@@ -15,3 +15,24 @@
 #user-account-menu li{
     display: list-item; padding: 0; margin: 10px;
 }
+
+.navigation {
+    line-height:1em;
+    border-radius:5px;
+    color: #ccc;
+}
+
+@media only screen and (min-width : 1200px) {
+    .navbar{
+        height: 3.2em;
+    }
+}
+
+@media only screen and (max-width : 576px) {
+    header #session-location {
+        display: flex;
+        top:unset !important;
+        width:unset !important;
+        left:unset !important;
+    } 
+}

@@ -72,75 +72,77 @@
             });
 
             <% if (enableUserAccountExt) { %>
-            jq('.identifier').hover(
-                function(){
-                    jq('.appui-toggle').show();
-                    jq('.appui-icon-caret-down').hide();
-                },
-                 function(){
-                    jq('.appui-toggle').hide();
-                    jq('.appui-icon-caret-down').show();
-                 }
-            );
+            var event = ('ontouchstart' in window) ? 'click' : 'mouseenter mouseleave';
+
+            jq('.identifier').on(event,function(){
+                    jq('.appui-toggle').toggle();
+                    jq('.appui-icon-caret-down').toggle();
+            });
+                
             jq('.identifier').css('cursor', 'pointer');
             <% } %>
         <% } %>
     });
 
 </script>
-
 <header>
-    <div class="logo">
-        <a href="${ logoLinkUrl }">
-            <img src="${ logoIconUrl }"/>
-        </a>
-    </div>
     <% if (context.authenticated) { %>
-    <ul class="user-options">
-        <li class="identifier">
-            <i class="icon-user small"></i>
-            ${context.authenticatedUser.username ?: context.authenticatedUser.systemId}
-            <% if (enableUserAccountExt) { %>
-            <i class="icon-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle" style="display: none;"></i>
-                <ul id="user-account-menu" class="appui-toggle">
-                    <% userAccountMenuItems.each{ menuItem  -> %>
-                    <li>
-                        <a id="" href="/${ contextPath }/${ menuItem.url }">
-                            ${ ui.message(menuItem.label) }
-                        </a>
-                    </li>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark navigation">
+            <a class="navbar-brand logo"  href="${ logoLinkUrl }" style="float:left;margin:-9px;">
+                <img style="width:120px" src="${ logoIconUrl }"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto user-options">
+                <li class="nav-item identifier">
+                    <i class="icon-user small"></i>
+                    ${context.authenticatedUser.username ?: context.authenticatedUser.systemId}
+                    <% if (enableUserAccountExt) { %>
+                        <i class="icon-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle" style="display: none;"></i>
+                        <ul id="user-account-menu" class="appui-toggle">
+                            <% userAccountMenuItems.each{ menuItem  -> %>
+                            <li>
+                                <a id="" href="/${ contextPath }/${ menuItem.url }">
+                                    ${ ui.message(menuItem.label) }
+                                </a>
+                            </li>
+                            <% } %>
+                        </ul>
+                    <% } %>
+                </li>
+            <li class="change-location">
+                    <a href="javascript:void(0);">
+                        <i class="icon-map-marker small"></i>
+                        <span id="selected-location" data-bind="text: text" location-uuid="${ sessionContext.sessionLocation ? sessionContext.sessionLocation.uuid : "" }"></span>
+                        <% if (multipleLoginLocations) { %>
+                            <i class="icon-caret-down link"></i>
+                        <% } %>
+                    </a>
+                </li>
+                <li class="nav-item logout">
+                    <a href="${ ui.actionLink("logout", ["successUrl": contextPath]) }">
+                        ${ui.message("emr.logout")}
+                        <i class="icon-signout small"></i>
+                    </a>
+                </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="session-location">
+                <div id="spinner" style="position:absolute; display:none">
+                    <img src="${ui.resourceLink("uicommons", "images/spinner.gif")}">
+                </div>
+                <ul class="select">
+                    <% loginLocations.sort { ui.format(it) }.each {
+                        def selected = (it == sessionContext.sessionLocation) ? "selected" : ""
+                    %>
+                    <li class="${selected}" locationUuid="${it.uuid}" locationId="${it.id}" locationName="${ui.encodeHtmlContent(ui.format(it))}">${ui.encodeHtmlContent(ui.format(it))}</li>
                     <% } %>
                 </ul>
-            <% } %>
-        </li>
-        <li class="change-location">
-            <a href="javascript:void(0);">
-                <i class="icon-map-marker small"></i>
-                <span id="selected-location" data-bind="text: text" location-uuid="${ sessionContext.sessionLocation ? sessionContext.sessionLocation.uuid : "" }"></span>
-                <% if (multipleLoginLocations) { %>
-                    <i class="icon-caret-down link"></i>
-                <% } %>
-            </a>
-        </li>
-        <li class="logout">
-            <a href="${ ui.actionLink("logout", ["successUrl": contextPath]) }">
-                ${ui.message("emr.logout")}
-                <i class="icon-signout small"></i>
-            </a>
-        </li>
-    </ul>
-
-    <div id="session-location">
-        <div id="spinner" style="position:absolute; display:none">
-            <img src="${ui.resourceLink("uicommons", "images/spinner.gif")}">
         </div>
-        <ul class="select">
-            <% loginLocations.sort { ui.format(it) }.each {
-                def selected = (it == sessionContext.sessionLocation) ? "selected" : ""
-            %>
-            <li class="${selected}" locationUuid="${it.uuid}" locationId="${it.id}" locationName="${ui.encodeHtmlContent(ui.format(it))}">${ui.encodeHtmlContent(ui.format(it))}</li>
-            <% } %>
-        </ul>
-    </div>
     <% } %>
 </header>
