@@ -2,7 +2,6 @@
     sessionContext.requireAuthentication()
 
 	ui.includeFragment("appui", "standardEmrIncludes")
-    ui.includeJavascript("appui", "jquery.min.js")
     ui.includeJavascript("appui", "popper.min.js")
     ui.includeJavascript("appui", "bootstrap.min.js")
 	def title = config.title ?: ui.message("emr.title")
