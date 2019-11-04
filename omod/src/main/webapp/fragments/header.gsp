@@ -87,7 +87,7 @@
 </script>
 <header>
     <% if (context.authenticated) { %>
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark navigation">
+        <nav class="navbar navbar-expand-lg navbar-dark navigation">
             <a class="navbar-brand logo"  href="${ logoLinkUrl }" style="float:left;margin:-9px;">
                 <img style="width:120px" src="${ logoIconUrl }"/>
             </a>
