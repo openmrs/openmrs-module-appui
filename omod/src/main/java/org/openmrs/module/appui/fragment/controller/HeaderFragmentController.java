@@ -40,7 +40,6 @@ public class HeaderFragmentController {
         try {
             Context.addProxyPrivilege(GET_LOCATIONS);
             Context.addProxyPrivilege(VIEW_LOCATIONS);
-            fragmentModel.addAttribute("loginLocations", appFrameworkService.getLoginLocations());
 
             List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
             Extension lowestOrderExtension = getLowestOrderExtenstion(exts);
