@@ -58,15 +58,15 @@ public class SessionFragmentControllerTest {
         UiUtils ui = new FragmentActionUiUtils(null, null, null, formatterService);
         
         // replay
-        List<SimpleObject> locationHits = new SessionFragmentController().getLoginLocations(ui, appFrameworkService);
+        List<SimpleObject> actualLoginLocations = new SessionFragmentController().getLoginLocations(ui, appFrameworkService);
 
         // verify
-        assertEquals(loginLocations.get(0).getName(), locationHits.get(0).get("name"));
-        assertEquals(loginLocations.get(0).getUuid(), locationHits.get(0).get("uuid"));
-        assertEquals(loginLocations.get(0).getId(), locationHits.get(0).get("id"));
-
-        assertEquals(loginLocations.get(1).getName(), locationHits.get(1).get("name"));
-        assertEquals(loginLocations.get(1).getUuid(), locationHits.get(1).get("uuid"));
-        assertEquals(loginLocations.get(1).getId(), locationHits.get(1).get("id"));
+        assertEquals(loginLocations.size(), actualLoginLocations.size());
+        assertEquals(loginLocations.get(0).getName(), actualLoginLocations.get(0).get("name"));
+        assertEquals(loginLocations.get(0).getUuid(), actualLoginLocations.get(0).get("uuid"));
+        assertEquals(loginLocations.get(0).getId(), actualLoginLocations.get(0).get("id"));
+        assertEquals(loginLocations.get(1).getName(), actualLoginLocations.get(1).get("name"));
+        assertEquals(loginLocations.get(1).getUuid(), actualLoginLocations.get(1).get("uuid"));
+        assertEquals(loginLocations.get(1).getId(), actualLoginLocations.get(1).get("id"));
     }
 }
