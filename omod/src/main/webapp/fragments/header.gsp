@@ -112,11 +112,13 @@
 
 </script>
 <header>
+    <div class="logo">
+        <a href="${ logoLinkUrl }">
+            <img src="${ logoIconUrl }"/>
+        </a>
+    </div>
     <% if (context.authenticated) { %>
         <nav class="navbar navbar-expand-lg navbar-dark navigation">
-            <a class="navbar-brand logo"  href="${ logoLinkUrl }" style="float:left;margin:-9px;">
-                <img style="width:120px" src="${ logoIconUrl }"/>
-            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
