@@ -9,6 +9,7 @@
     }
     def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("uicommons", "images/logo/openmrs-with-title-small.png")
     def logoLinkUrl = addContextPath(configSettings?."logo-link-url") ?: "/${ org.openmrs.ui.framework.WebConstants.CONTEXT_PATH }/"
+    def useBootstrap = config.containsKey('useBootstrap') ? config.useBootstrap : true;  // use bootstrap unless specifically excluded
 
     def enableUserAccountExt = userAccountMenuItems.size > 0;
 
@@ -30,13 +31,13 @@
         var loginLocationsUrl = emr.fragmentActionLink("appui", "session", "getLoginLocations");
         var sessionLocation = '${ sessionContext.sessionLocation ? sessionContext.sessionLocation.name : "" }';
         var multipleLoginLocations = false;
-        
+
         jq.getJSON(loginLocationsUrl).done(function(locations) {
             if (jq(locations).size() > 1) {
                 // we only want to activate the functionality to change location if there are actually multiple login locations
                 multipleLoginLocations = true;
             }
-            
+
             locations.sort(function(locationA, locationB) {
                 return locationA.name.localeCompare(locationB.name);
             });
@@ -105,7 +106,7 @@
                 jq('.appui-toggle').toggle();
                 jq('.appui-icon-caret-down').toggle();
         });
-            
+
         jq('.identifier').css('cursor', 'pointer');
         <% } %>
     }
@@ -118,14 +119,21 @@
         </a>
     </div>
     <% if (context.authenticated) { %>
-        <nav class="navbar navbar-expand-lg navbar-dark navigation">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto user-options">
-                <li class="nav-item identifier">
+        <% if (useBootstrap) { %>
+            <nav class="navbar navbar-expand-lg navbar-dark navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto user-options">
+                    <li class="nav-item identifier">
+        <% } else { %>
+                    <ul class="user-options">
+                    <li class="identifier">
+        <% } %>
+
                     <i class="icon-user small"></i>
                     ${context.authenticatedUser.username ?: context.authenticatedUser.systemId}
                     <% if (enableUserAccountExt) { %>
@@ -155,8 +163,11 @@
                     </a>
                 </li>
                 </ul>
+
+        <% if (useBootstrap) { %>
             </div>
         </nav>
+        <% } %>
 
         <div id="session-location">
                 <div id="spinner" style="position:absolute; display:none">
