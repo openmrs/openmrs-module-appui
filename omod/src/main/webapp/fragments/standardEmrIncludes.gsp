@@ -16,13 +16,4 @@
     // simplemodal plugin: http://www.ericmmartin.com/projects/simplemodal/
     ui.includeJavascript("uicommons", "jquery.simplemodal.1.4.4.min.js", Integer.MAX_VALUE - 20)
 
-    if (includeBootstrap) {
-        ui.includeJavascript("appui", "popper.min.js")
-        ui.includeJavascript("appui", "bootstrap.min.js")
-        ui.includeCss("appui", "bootstrap.min.css")
-    }
-    else {
-        ui.includeCss("appui", "no-bootstrap.css")
-    }
-
 %>

@@ -8,6 +8,15 @@
 
 	ui.includeFragment("appui", "standardEmrIncludes", [ includeBootstrap: includeBootstrap ])
 
+    if (includeBootstrap) {
+        ui.includeJavascript("appui", "popper.min.js")
+        ui.includeJavascript("appui", "bootstrap.min.js")
+        ui.includeCss("appui", "bootstrap.min.css")
+    }
+    else {
+        ui.includeCss("appui", "no-bootstrap.css")
+    }
+
     ui.includeCss("appui", "header.css")
 
 %>
