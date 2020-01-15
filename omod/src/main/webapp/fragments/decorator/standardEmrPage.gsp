@@ -1,12 +1,15 @@
 <%
     sessionContext.requireAuthentication()
 
-	ui.includeFragment("appui", "standardEmrIncludes")
-    ui.includeJavascript("appui", "popper.min.js")
-    ui.includeJavascript("appui", "bootstrap.min.js")
-	def title = config.title ?: ui.message("emr.title")
+    def title = config.title ?: ui.message("emr.title")
     def timezoneOffset = -Calendar.getInstance().getTimeZone().getOffset(System.currentTimeMillis()) / 60000
     def jsTimezone = new java.text.SimpleDateFormat("ZZ").format(new Date());
+    def includeBootstrap = config.containsKey('includeBootstrap') ? config.includeBootstrap : true;  // include bootstrap unless specifically excluded
+
+	ui.includeFragment("appui", "standardEmrIncludes", [ includeBootstrap: includeBootstrap ])
+
+    ui.includeCss("appui", "header.css")
+
 %>
 
 <!DOCTYPE html>
@@ -17,8 +20,6 @@
         <link rel="icon" type="image/png\" href="/${ ui.contextPath() }/images/openmrs-favicon.png"/>
         <!-- Latest compiled and minified CSS -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <% ui.includeCss("appui", "bootstrap.min.css") %>
-        <% ui.includeCss("appui", "header.css") %>
         ${ ui.resourceLinks() }
     </head>
     <body>

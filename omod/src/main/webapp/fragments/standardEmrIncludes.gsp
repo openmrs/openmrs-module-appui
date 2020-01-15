@@ -1,4 +1,6 @@
 <%
+    def includeBootstrap = config.containsKey('includeBootstrap') ? config.includeBootstrap : true;  // include bootstrap unless specifically excluded
+
 	ui.includeJavascript("uicommons", "jquery-1.12.4.min.js", Integer.MAX_VALUE)
 	ui.includeJavascript("uicommons", "jquery-ui-1.9.2.custom.min.js", Integer.MAX_VALUE - 10)
     ui.includeJavascript("uicommons", "underscore-min.js", Integer.MAX_VALUE - 10)
@@ -13,5 +15,11 @@
 
     // simplemodal plugin: http://www.ericmmartin.com/projects/simplemodal/
     ui.includeJavascript("uicommons", "jquery.simplemodal.1.4.4.min.js", Integer.MAX_VALUE - 20)
+
+    if (includeBootstrap) {
+        ui.includeJavascript("appui", "popper.min.js")
+        ui.includeJavascript("appui", "bootstrap.min.js")
+        ui.includeCss("appui", "bootstrap.min.css")
+    }
 
 %>
