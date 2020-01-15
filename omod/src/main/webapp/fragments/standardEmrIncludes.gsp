@@ -21,5 +21,8 @@
         ui.includeJavascript("appui", "bootstrap.min.js")
         ui.includeCss("appui", "bootstrap.min.css")
     }
+    else {
+        ui.includeCss("appui", "no-bootstrap.css")
+    }
 
 %>

@@ -1,0 +1,5 @@
+
+/* apply body-wrapping padding that has been removed in favor of Bootstrap-specified padding */
+#body-wrapper {
+   padding: 10px !important;
+}
