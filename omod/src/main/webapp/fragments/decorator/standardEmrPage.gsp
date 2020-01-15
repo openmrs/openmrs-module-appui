@@ -38,7 +38,7 @@
             }
         </script>
 
-        ${ ui.includeFragment("appui", "header") }
+        ${ ui.includeFragment("appui", "header", [ useBootstrap: includeBootstrap ]) }
 
         <ul id="breadcrumbs"></ul>
 
