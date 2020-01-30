@@ -43,7 +43,10 @@ public class HeaderFragmentController {
 
             List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
             Extension lowestOrderExtension = getLowestOrderExtenstion(exts);
-            Map<String, Object> configSettings = lowestOrderExtension.getExtensionParams();
+            Map<String, Object> configSettings = null;
+            if (lowestOrderExtension != null) {
+            	configSettings = lowestOrderExtension.getExtensionParams();
+            }
             fragmentModel.addAttribute("configSettings", configSettings);
             List<Extension> userAccountMenuItems = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
             fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
