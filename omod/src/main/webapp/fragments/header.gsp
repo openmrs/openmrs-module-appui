@@ -30,7 +30,7 @@
         var locationsList = jq('div#session-location').find('ul.select');
         var loginLocationsUrl = emr.fragmentActionLink("appui", "session", "getLoginLocations");
         var sessionLocation = {};
-        sessionLocation.name = '${ sessionContext.sessionLocation ? sessionContext.sessionLocation.name : "" }';
+        sessionLocation.name = "${ sessionContext.sessionLocation ? sessionContext.sessionLocation.name : '' }";
         var multipleLoginLocations = false;
 
         jq.getJSON(loginLocationsUrl).done(function(locations) {
