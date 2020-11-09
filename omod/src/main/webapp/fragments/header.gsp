@@ -54,6 +54,17 @@
             if (multipleLoginLocations == true) {
                 enableLoginLocations();
             }
+
+            <% if (enableUserAccountExt) { %>
+                var event = ('ontouchstart' in window) ? 'click' : 'mouseenter mouseleave';
+
+                jq('.identifier').on(event,function(){
+                    jq('.appui-toggle').toggle();
+                    jq('.appui-icon-caret-down').toggle();
+                });
+
+                jq('.identifier').css('cursor', 'pointer');
+            <% } %>
         });
     });
 
@@ -99,17 +110,6 @@
             jq(".change-location a i:nth-child(3)").addClass("icon-caret-down");
             jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
         });
-
-        <% if (enableUserAccountExt) { %>
-        var event = ('ontouchstart' in window) ? 'click' : 'mouseenter mouseleave';
-
-        jq('.identifier').on(event,function(){
-                jq('.appui-toggle').toggle();
-                jq('.appui-icon-caret-down').toggle();
-        });
-
-        jq('.identifier').css('cursor', 'pointer');
-        <% } %>
     }
 
 </script>
@@ -187,6 +187,6 @@
             <a href="${ logoLinkUrl }">
                 <img src="${ logoIconUrl }"/>
             </a>
-        </div>    
+        </div>
     <% } %>
 </header>
