@@ -56,14 +56,14 @@
             }
 
             <% if (enableUserAccountExt) { %>
-                var event = ('ontouchstart' in window) ? 'click' : 'mouseenter mouseleave';
+            var event = ('ontouchstart' in window) ? 'click' : 'mouseenter mouseleave';
 
-                jq('.identifier').on(event,function(){
-                    jq('.appui-toggle').toggle();
-                    jq('.appui-icon-caret-down').toggle();
-                });
+            jq('.identifier').on(event,function(){
+                jq('.appui-toggle').toggle();
+                jq('.appui-icon-caret-down').toggle();
+            });
 
-                jq('.identifier').css('cursor', 'pointer');
+            jq('.identifier').css('cursor', 'pointer');
             <% } %>
         });
     });
