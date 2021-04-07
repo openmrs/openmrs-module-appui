@@ -92,7 +92,7 @@
             var locationName = element.attr("locationName");
 
             <% if (ui.convertTimezones()) { %>
-                var clientCurrentTimezone= jq("#client-timezone").val();
+                var clientCurrentTimezone = jq("#client-timezone").val();
                 data = { locationId: locationId , clientTimezone: clientCurrentTimezone };
             <% } else { %>
                 data = { locationId: locationId };
