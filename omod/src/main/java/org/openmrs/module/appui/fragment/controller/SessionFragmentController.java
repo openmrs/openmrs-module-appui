@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.api.LocationService;
 import org.openmrs.module.appframework.service.AppFrameworkService;
@@ -22,23 +23,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SessionFragmentController {
     
     public FragmentActionResult setLocation(@RequestParam("locationId") Location location,
+                                            @RequestParam(value = "clientTimezone", required = false) String clientTimezone,
                                             @SpringBean("locationService") LocationService locationService,
+                                            UiUtils ui,
                                             UiSessionContext context, ServletContext servletContext,
                                             HttpServletResponse httpResponse) {
         context.setSessionLocation(location);
-        
         // Update lastSessionLocation cookie which was set from the context path,
         // so next time someone logs, it will default to the same location
         httpResponse.setHeader("Set-Cookie",
                 AppUiConstants.COOKIE_NAME_LAST_SESSION_LOCATION + "=" + location.getLocationId()
                         + "; HttpOnly; Path=" + servletContext.getContextPath());
-        
+        //Add client timezone to propriety
+        if (StringUtils.isNotBlank(clientTimezone)) {
+            if (StringUtils.isNotBlank(clientTimezone)) {
+                ui.setClientTimezoneProperty(clientTimezone);
+            }
+        }
         return new ObjectResult(ConversionUtil.convertToRepresentation(location,
                 Representation.DEFAULT));  // TODO: the callback in header.gsp should actually use this information instead of automatically setting the session location and id
     }
 
     public List<SimpleObject> getLoginLocations(UiUtils ui, @SpringBean AppFrameworkService appFrameworkService) {
-        
+
         List<Location> loginLocations = appFrameworkService.getLoginLocations();
         List<SimpleObject> ret = new ArrayList<SimpleObject>();
         for (Location location : loginLocations) {
