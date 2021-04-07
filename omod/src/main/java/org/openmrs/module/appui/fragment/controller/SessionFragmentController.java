@@ -37,7 +37,7 @@ public class SessionFragmentController {
         //Add client timezone to propriety
         if (StringUtils.isNotBlank(clientTimezone)) {
             if (StringUtils.isNotBlank(clientTimezone)) {
-                ui.setClientTimezoneProperty(clientTimezone);
+                ui.setClientTimezone(clientTimezone);
             }
         }
         return new ObjectResult(ConversionUtil.convertToRepresentation(location,
