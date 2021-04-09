@@ -34,11 +34,9 @@ public class SessionFragmentController {
         httpResponse.setHeader("Set-Cookie",
                 AppUiConstants.COOKIE_NAME_LAST_SESSION_LOCATION + "=" + location.getLocationId()
                         + "; HttpOnly; Path=" + servletContext.getContextPath());
-        //Add client timezone to propriety
+        //Add client timezone to property
         if (StringUtils.isNotBlank(clientTimezone)) {
-            if (StringUtils.isNotBlank(clientTimezone)) {
-                ui.setClientTimezone(clientTimezone);
-            }
+            ui.setClientTimezone(clientTimezone);
         }
         return new ObjectResult(ConversionUtil.convertToRepresentation(location,
                 Representation.DEFAULT));  // TODO: the callback in header.gsp should actually use this information instead of automatically setting the session location and id
