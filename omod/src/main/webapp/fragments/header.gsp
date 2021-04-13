@@ -91,8 +91,12 @@
             var locationUuid = element.attr("locationUuid");
             var locationName = element.attr("locationName");
 
-            var data = { locationId: locationId };
-
+            <% if (ui.convertTimezones()) { %>
+                var clientCurrentTimezone = jq("#clientTimezone").val();
+                data = { locationId: locationId , clientTimezone: clientCurrentTimezone };
+            <% } else { %>
+                data = { locationId: locationId };
+            <% } %>
             jq("#spinner").show();
 
             jq.post(emr.fragmentActionLink("appui", "session", "setLocation", data), function (data) {
@@ -111,7 +115,11 @@
             jq(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
         });
     }
-
+    jq(document).ready(function () {
+        if (jq("#clientTimezone").length) {
+            jq("#clientTimezone").val(Intl.DateTimeFormat().resolvedOptions().timeZone)
+        }
+    });
 </script>
 <header>
 
@@ -181,7 +189,10 @@
                     <img src="${ui.resourceLink("uicommons", "images/spinner.gif")}">
                 </div>
                 <ul class="select"></ul>
-        </div>
+    <% if (ui.convertTimezones()) { %>
+            <input type="hidden" id="clientTimezone" name="clientTimezone">
+    <% } %>
+</div>
     <% } else { %>
         <div class="logo">
             <a href="${ logoLinkUrl }">
