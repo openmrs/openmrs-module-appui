@@ -21,6 +21,7 @@ import org.openmrs.module.appui.AppUiConstants;
 import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
+import org.openmrs.web.user.CurrentUsers;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -67,8 +68,8 @@ public class HeaderFragmentController {
     }
 
     public void logout(HttpServletRequest request) throws IOException {
+        CurrentUsers.removeUser(request.getSession());
         Context.logout();
-        request.getSession().invalidate();
         request.getSession().setAttribute(AppUiConstants.SESSION_ATTRIBUTE_MANUAL_LOGOUT, "true");
     }
 
