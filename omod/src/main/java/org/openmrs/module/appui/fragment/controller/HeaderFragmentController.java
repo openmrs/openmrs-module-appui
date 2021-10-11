@@ -23,8 +23,6 @@ import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
-import org.openmrs.ui.framework.fragment.action.FragmentActionResult;
-import org.openmrs.ui.framework.fragment.action.ObjectResult;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -77,13 +75,12 @@ public class HeaderFragmentController {
         request.getSession().setAttribute(AppUiConstants.SESSION_ATTRIBUTE_MANUAL_LOGOUT, "true");
     }
 
-    public FragmentActionResult setTimezone(@RequestParam(value = "clientTimezone", required = true) String clientTimezone,
+    public void setTimezone(@RequestParam(value = "clientTimezone", required = true) String clientTimezone,
                                             UiUtils ui) {
         //Update the client timezone
         if (StringUtils.isNotBlank(clientTimezone)) {
             ui.setClientTimezone(clientTimezone);
         }
-        return new ObjectResult(ui.getClientTimezone());
     }
 
 }
