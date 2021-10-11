@@ -116,6 +116,13 @@
         });
     }
     jq(document).ready(function () {
+
+        <% if (ui.convertTimezones()) { %>
+            var clientCurrentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            data = { clientTimezone: clientCurrentTimezone };
+            emr.getFragmentActionWithCallback("appui", "header", "setTimezone", data , null , null);
+        <% } %>
+
         if (jq("#clientTimezone").length) {
             jq("#clientTimezone").val(Intl.DateTimeFormat().resolvedOptions().timeZone)
         }
