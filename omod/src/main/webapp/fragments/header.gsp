@@ -120,7 +120,7 @@
         <% if (ui.convertTimezones()) { %>
             var clientCurrentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             data = { clientTimezone: clientCurrentTimezone };
-            emr.getFragmentActionWithCallback("appui", "header", "setTimezone", data , null , null);
+            emr.getFragmentActionWithCallback("appui", "header", "setClientTimezone", data , null , null);
         <% } %>
 
         if (jq("#clientTimezone").length) {

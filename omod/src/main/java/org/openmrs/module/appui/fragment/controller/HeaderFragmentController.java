@@ -75,7 +75,7 @@ public class HeaderFragmentController {
         request.getSession().setAttribute(AppUiConstants.SESSION_ATTRIBUTE_MANUAL_LOGOUT, "true");
     }
 
-    public void setTimezone(@RequestParam(value = "clientTimezone", required = true) String clientTimezone,
+    public void setClientTimezone(@RequestParam(value = "clientTimezone", required = true) String clientTimezone,
                                             UiUtils ui) {
         if (StringUtils.isNotBlank(clientTimezone)) {
             ui.setClientTimezone(clientTimezone);
