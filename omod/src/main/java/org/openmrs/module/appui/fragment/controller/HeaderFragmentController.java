@@ -77,7 +77,6 @@ public class HeaderFragmentController {
 
     public void setTimezone(@RequestParam(value = "clientTimezone", required = true) String clientTimezone,
                                             UiUtils ui) {
-        //Update the client timezone
         if (StringUtils.isNotBlank(clientTimezone)) {
             ui.setClientTimezone(clientTimezone);
         }
