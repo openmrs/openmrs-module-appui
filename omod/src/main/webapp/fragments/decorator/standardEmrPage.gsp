@@ -30,6 +30,7 @@
         <!-- Latest compiled and minified CSS -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ${ ui.resourceLinks() }
+        <script src="/${ui.contextPath()}/csrfguard" type="text/javascript"></script>
     </head>
     <body>
         <script type="text/javascript">
