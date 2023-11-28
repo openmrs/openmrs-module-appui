@@ -50,7 +50,8 @@ public class SessionFragmentController {
             SimpleObject obj = new SimpleObject();
             obj.put("id", location.getId());
             obj.put("uuid", location.getUuid());
-            obj.put("name", ui.format(location));
+            obj.put("name", location.getName());
+            obj.put("display", ui.format(location));
             ret.add(obj);
         }
         return ret;

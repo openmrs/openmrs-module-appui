@@ -48,8 +48,8 @@ public class SessionFragmentControllerTest {
         loginLocations.add(location2);
 
         when(appFrameworkService.getLoginLocations()).thenReturn(loginLocations);
-        when(ui.format(location1)).thenReturn("location1");
-        when(ui.format(location2)).thenReturn("location2");
+        when(ui.format(location1)).thenReturn("location1_display");
+        when(ui.format(location2)).thenReturn("location2_display");
     }
 
     @Test
@@ -62,8 +62,10 @@ public class SessionFragmentControllerTest {
         assertEquals(loginLocations.get(0).getName(), actualLoginLocations.get(0).get("name"));
         assertEquals(loginLocations.get(0).getUuid(), actualLoginLocations.get(0).get("uuid"));
         assertEquals(loginLocations.get(0).getId(), actualLoginLocations.get(0).get("id"));
+        assertEquals("location1_display", actualLoginLocations.get(0).get("display"));
         assertEquals(loginLocations.get(1).getName(), actualLoginLocations.get(1).get("name"));
         assertEquals(loginLocations.get(1).getUuid(), actualLoginLocations.get(1).get("uuid"));
         assertEquals(loginLocations.get(1).getId(), actualLoginLocations.get(1).get("id"));
+        assertEquals("location2_display", actualLoginLocations.get(1).get("display"));
     }
 }
