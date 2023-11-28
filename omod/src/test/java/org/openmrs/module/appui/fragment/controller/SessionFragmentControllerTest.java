@@ -26,7 +26,7 @@ public class SessionFragmentControllerTest {
     private AppFrameworkService appFrameworkService;
 
     @Mock
-    private MessageSource messageSource;
+    private UiUtils ui;
 
     private List<Location> loginLocations;
 
@@ -48,16 +48,13 @@ public class SessionFragmentControllerTest {
         loginLocations.add(location2);
 
         when(appFrameworkService.getLoginLocations()).thenReturn(loginLocations);
+        when(ui.format(location1)).thenReturn("location1");
+        when(ui.format(location2)).thenReturn("location2");
     }
 
     @Test
     public void getLoginLocations_shouldReturnSimplifiedJsonLoginLocations() {
-        // setup
-        FormatterService formatterService = new FormatterService();
-        formatterService.setMessageSource(messageSource);
-        UiUtils ui = new FragmentActionUiUtils(null, null, null, formatterService);
-        
-        // replay
+
         List<SimpleObject> actualLoginLocations = new SessionFragmentController().getLoginLocations(ui, appFrameworkService);
 
         // verify
