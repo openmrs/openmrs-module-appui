@@ -47,7 +47,7 @@
                             .attr('locationUuid', location.uuid)
                             .attr('locationId', location.id)
                             .attr('locationName', location.name)
-                            .text(location.name)
+                            .text(location.display)
                             .appendTo(locationsList);
             });
         }).always(function() {

@@ -47,7 +47,12 @@ public class SessionFragmentController {
         List<Location> loginLocations = appFrameworkService.getLoginLocations();
         List<SimpleObject> ret = new ArrayList<SimpleObject>();
         for (Location location : loginLocations) {
-            ret.add(SimpleObject.fromObject(location, ui, "id", "uuid", "name"));
+            SimpleObject obj = new SimpleObject();
+            obj.put("id", location.getId());
+            obj.put("uuid", location.getUuid());
+            obj.put("name", location.getName());
+            obj.put("display", ui.format(location));
+            ret.add(obj);
         }
         return ret;
     }
