@@ -11,9 +11,17 @@
     def logoLinkUrl = addContextPath(configSettings?."logo-link-url") ?: "/${ org.openmrs.ui.framework.WebConstants.CONTEXT_PATH }/"
     def useBootstrap = config.containsKey('useBootstrap') ? config.useBootstrap : true;  // use bootstrap unless specifically excluded
 
+    def customProvider = configSettings?."custom-provider"
+    def customFragment = configSettings?."custom-fragment"
+
     def enableUserAccountExt = userAccountMenuItems.size() > 0;
 
 %>
+
+<% if (customProvider && customFragment) { %>
+    ${ui.includeFragment(customProvider, customFragment, config)}
+<% } else { %>
+
 <script type="text/javascript">
 
     var sessionLocationModel = {
@@ -208,3 +216,5 @@
         </div>
     <% } %>
 </header>
+
+<% } %>
